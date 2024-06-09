@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    min-height: 100dvh;
+    background: rgb(24, 24, 24);
+    background: -moz-radial-gradient(circle, rgb(33, 33, 33) 0%, rgba(32, 32, 32, 1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(62, 62, 62, 1) 0%, rgba(32, 32, 32, 1) 100%);
+    background: radial-gradient(circle, rgb(24, 24, 24) 0%, rgba(32, 32, 32, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3e3e3e", endColorstr="#202020", GradientType=1);
+    font-family: "Outfit", sans-serif;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
