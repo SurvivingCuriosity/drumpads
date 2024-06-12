@@ -1,12 +1,12 @@
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Sound } from '../interfaces/Sound';
+import { SoundFull } from '../db/Sound';
 import { Key } from './Key';
 
 export interface ButtonProps {
   index: number;
   isTouch: boolean;
-  sound:Sound;
+  sound:SoundFull;
 }
 
 export const Pad = (props: ButtonProps) => {

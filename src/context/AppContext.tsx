@@ -1,19 +1,20 @@
 
 // create context
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { sounds as initialSounds } from '../db/Sound'; // Importa directamente el archivo sin extensión
-import { Sound } from '../interfaces/Sound';
+import { sounds as initialSounds } from '../db/AllSounds'; // Importa directamente el archivo sin extensión
+import { SoundFull } from '../db/Sound';
 import AudioManager from '../services/AudioManager';
 
 type ComplexEvent = React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>
 
 export interface AppContext {
-    sounds: Sound[];
-    setSounds: (sounds: Sound[]) => void;
-    playSound: (e:ComplexEvent) => void; // Ajustar el tipo del evento
+    sounds: SoundFull[];
+    setSounds: (sounds: SoundFull[]) => void;
+    playSound: (e: ComplexEvent) => void; // Ajustar el tipo del evento
     isTouch: boolean;
     showingShortcuts: boolean;
     setShowingShortcuts: (value: boolean) => void;
+    play: (sound: SoundFull) => void;
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext);
@@ -22,9 +23,14 @@ export const AppContext = createContext<AppContext>({} as AppContext);
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
 
+    const [sounds, setSounds] = useState<SoundFull[]>(initialSounds.map(sound => ({
+        ...sound,
+        playing: false,
+        volume: 1,
+        audioObj: null
+        })));
+    const audioManager = useMemo(() => new AudioManager(sounds), [sounds]);
     const [showingShortcuts, setShowingShortcuts] = useState<boolean>(false);
-    const [sounds, setSounds] = useState<Sound[]>(initialSounds);
-    const audioManager = useMemo(() => new AudioManager(initialSounds), []);
     const [isTouch, setIsTouch] = useState<boolean>(false); // Especifica el tipo de la bandera
 
     useEffect(() => {
@@ -38,11 +44,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             window.removeEventListener('touchstart', handleTouchStart);
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [sounds]);
-
-    useEffect(() => {
-        console.log(sounds);
-        
     }, [sounds]);
 
     const playSound = useCallback((e: ComplexEvent) => {
@@ -84,11 +85,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         } else {
             return;
         }
-        console.log(sounds[eventIndex]);
-        
         const audioSrc = sounds[eventIndex]?.audioSrc;
         if (!audioSrc) return;
-        
+
         audioManager.playSound(audioSrc, sounds[eventIndex]?.volume);
 
         // Animate boom animation
@@ -107,9 +106,34 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             );
         }, 100);
     }, [sounds, audioManager]);
+    
+    const play = useCallback((sound: SoundFull) => {
+        if (!audioManager) return; // Agrega verificación de audioManager
+
+        const audioSrc = sound?.audioSrc;
+        if (!audioSrc) return;
+
+        audioManager.playSound(audioSrc, sound?.volume);
+
+        // Animate boom animation
+        // setSounds(prevSounds =>
+        //     prevSounds.map((sound, index) =>
+        //         index === eventIndex ? { ...sound, playing: true } : sound
+        //     )
+        // );
+
+        // // Remove boom animation
+        // setTimeout(() => {
+        //     setSounds(prevSounds =>
+        //         prevSounds.map((sound, index) =>
+        //             index === eventIndex ? { ...sound, playing: false } : sound
+        //         )
+        //     );
+        // }, 100);
+    }, [sounds, audioManager]);
 
     return (
-        <AppContext.Provider value={{ sounds, playSound, isTouch, showingShortcuts, setShowingShortcuts, setSounds }}>
+        <AppContext.Provider value={{ sounds, playSound, isTouch, showingShortcuts, setShowingShortcuts, setSounds, play }}>
             {children}
         </AppContext.Provider>
     );

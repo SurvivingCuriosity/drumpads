@@ -4,10 +4,14 @@ import { Pad } from './Pad';
 import Select from 'react-select'
 import keyboard_icon from '../assets/icons/keyboard.svg'
 import keyboard_off_icon from '../assets/icons/keyboard_off.svg'
+import knobs from '../assets/icons/knobs.svg'
+import { Controls } from './Controls';
+import { useState } from 'react';
 
 const DrumPads = () => {
 
     const { sounds, isTouch, setShowingShortcuts, showingShortcuts } = useAppContext();
+    const [showControls, setShowControls] = useState(false);
     const options = [
         { value: 'chocolate', label: 'Reggaeton' },
         { value: 'strawberry', label: 'Trap' },
@@ -62,16 +66,14 @@ const DrumPads = () => {
                         option: () => `bg-neutral-800 hover:bg-neutral-700 text-fuchsia-500`,
                     }}
                     options={options} />
-                <button onClick={() => setShowingShortcuts(!showingShortcuts)} className=''>
-                    <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-10' />
+                <button onClick={() => setShowingShortcuts(!showingShortcuts)} className='rounded-md border border-neutral-800 bg-neutral-900'>
+                    <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-8' />
                 </button>
-                <button onClick={() => setShowingShortcuts(!showingShortcuts)} className=''>
-                    <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-10' />
-                </button>
-                <button onClick={() => setShowingShortcuts(!showingShortcuts)} className=''>
-                    <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-10' />
+                <button onClick={() => setShowControls(!showControls)} className='rounded-md border border-neutral-800 bg-neutral-900'>
+                    <img src={knobs} className='size-8' />
                 </button>
             </div>
+            {showControls && <Controls />}
             <section id="drumkit" className='grid grid-cols-3 grid-rows-3 items-center justify-items-center gap-2 text-neutral-700'>
                 {sounds.map((sound, index) => (
                     <Pad

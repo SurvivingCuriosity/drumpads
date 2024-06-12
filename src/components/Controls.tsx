@@ -15,7 +15,7 @@ export const VolumeControls = () => {
     const {sounds} = useAppContext();
 
     return (
-        <div className="flex gap-1">
+        <div className="mb-1 flex gap-1">
             {sounds.map((sound, index) => (
                 <VolumeKnob key={sound.audioSrc} isPlaying={sound.playing} index={index} />
             ))}
