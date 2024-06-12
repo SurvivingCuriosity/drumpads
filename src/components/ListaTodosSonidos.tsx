@@ -24,11 +24,6 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
 
     const allSounds = [...kicks, ...claps, ...snares, ...hihats, ...percs, ...others];
 
-
-    console.log('==============');
-    allSounds.forEach(sound => console.log(sound.key));
-    
-
     return (
         <div className="">
             <ul className="mb-4 flex flex-col gap-2">

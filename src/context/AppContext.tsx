@@ -44,7 +44,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             window.removeEventListener('touchstart', handleTouchStart);
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [sounds]);
+    }, []);
 
     const playSound = useCallback((e: ComplexEvent) => {
         if (!audioManager) return; // Agrega verificación de audioManager
@@ -114,22 +114,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         if (!audioSrc) return;
 
         audioManager.playSound(audioSrc, sound?.volume);
-
-        // Animate boom animation
-        // setSounds(prevSounds =>
-        //     prevSounds.map((sound, index) =>
-        //         index === eventIndex ? { ...sound, playing: true } : sound
-        //     )
-        // );
-
-        // // Remove boom animation
-        // setTimeout(() => {
-        //     setSounds(prevSounds =>
-        //         prevSounds.map((sound, index) =>
-        //             index === eventIndex ? { ...sound, playing: false } : sound
-        //         )
-        //     );
-        // }, 100);
     }, [sounds, audioManager]);
 
     return (

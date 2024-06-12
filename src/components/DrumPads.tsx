@@ -77,6 +77,7 @@ const DrumPads = () => {
             <section id="drumkit" className='grid grid-cols-3 grid-rows-3 items-center justify-items-center gap-2 text-neutral-700'>
                 {sounds.map((sound, index) => (
                     <Pad
+                        key={sound.key}
                         sound={sound}
                         index={index}
                         isTouch={isTouch}

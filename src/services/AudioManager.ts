@@ -29,6 +29,7 @@ class AudioManager {
     if (buffer) {
       if (this.sources[audioSrc]) {
         this.sources[audioSrc]?.stop();
+        this.sources[audioSrc] = null;
       }
 
       const source = this.context.createBufferSource();
