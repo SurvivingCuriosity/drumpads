@@ -15,6 +15,11 @@ export interface AppContext {
     showingShortcuts: boolean;
     setShowingShortcuts: (value: boolean) => void;
     play: (sound: SoundFull) => void;
+    setIsTouch: (value: boolean) => void;
+    bpm: number;
+    setBpm: (value: number) => void;
+    screenContent: 'drumpad' | 'sequencer' | 'both';
+    setScreenContent: (value: 'drumpad' | 'sequencer' | 'both') => void;
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext);
@@ -29,9 +34,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         volume: 1,
         audioObj: null
         })));
-    const audioManager = useMemo(() => new AudioManager(sounds), [sounds]);
+    const audioManager = useMemo(() => new AudioManager(sounds), []);
     const [showingShortcuts, setShowingShortcuts] = useState<boolean>(false);
     const [isTouch, setIsTouch] = useState<boolean>(false); // Especifica el tipo de la bandera
+    const [bpm, setBpm] = useState<number>(90);
+    const [screenContent, setScreenContent] = useState<'drumpad' | 'sequencer' | 'both'>('drumpad');
 
     useEffect(() => {
         const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement> | KeyboardEvent) => playSound(e as React.KeyboardEvent<HTMLDivElement>);
@@ -114,10 +121,27 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         if (!audioSrc) return;
 
         audioManager.playSound(audioSrc, sound?.volume);
-    }, [sounds, audioManager]);
+
+        // Animate boom animation
+        setSounds(prevSounds =>
+            prevSounds.map((s) =>
+                sound.key === s.key ? { ...s, playing: true } : s
+            )
+        );
+
+        // Remove boom animation
+        setTimeout(() => {
+            setSounds(prevSounds =>
+                prevSounds.map((s) =>
+                    sound.key === s.key  ? { ...s, playing: false } : s
+                )
+            );
+        }, 100);
+
+    }, [audioManager]);
 
     return (
-        <AppContext.Provider value={{ sounds, playSound, isTouch, showingShortcuts, setShowingShortcuts, setSounds, play }}>
+        <AppContext.Provider value={{ sounds, playSound, isTouch, setIsTouch,showingShortcuts, setShowingShortcuts, setSounds, play, bpm, setBpm, screenContent, setScreenContent }}>
             {children}
         </AppContext.Provider>
     );

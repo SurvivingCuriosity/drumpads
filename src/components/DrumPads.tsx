@@ -18,7 +18,7 @@ const DrumPads = () => {
         { value: 'vanilla', label: 'Techno' }
     ]
     return (
-        <div className='w-full rounded-lg bg-neutral-900 p-4'>
+        <div className='w-full max-w-lg rounded-lg bg-neutral-900 p-4'>
             <div className='mb-2 flex items-center justify-between gap-2'>
                 <Select
                     styles={{

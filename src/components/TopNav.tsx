@@ -10,7 +10,7 @@ export const TopNav = () => {
 
     return (
         <>
-            <div className="absolute top-0 w-full border-b border-fuchsia-600 bg-neutral-900">
+            <div className="w-full border-b border-fuchsia-600 bg-neutral-900">
                 <SideNav isOpen={isOpen} setIsOpen={setIsOpen} />
                 <nav className="mx-auto flex max-w-screen-xl items-center justify-between p-1">
                     <button onClick={() => { setIsOpen(!isOpen) }} className='block lg:hidden'>
