@@ -1,25 +1,25 @@
-import music_list_icon from '../assets/icons/music_list.svg'
-import ajustes_icon from '../assets/icons/ajustes.svg'
-import { AppTitle } from './AppTitle'
-import { useState } from 'react';
+import music_list_icon from '../assets/icons/music_list.svg';
+import { useAppContext } from '../context/useAppContext';
+import { AppTitle } from './AppTitle';
 import { SideNav } from './SideNav';
 
 export const TopNav = () => {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const {sideNavOpened, setSideNavOpened} = useAppContext()
 
     return (
         <>
             <div className="w-full border-b border-fuchsia-600 bg-neutral-900">
-                <SideNav isOpen={isOpen} setIsOpen={setIsOpen} />
+                <SideNav />
                 <nav className="mx-auto flex max-w-screen-xl items-center justify-between p-1">
-                    <button onClick={() => { setIsOpen(!isOpen) }} className='block lg:hidden'>
+                    <button onClick={() => { setSideNavOpened(!sideNavOpened) }} className='block min-w-8 lg:hidden'>
                         <img src={music_list_icon} className='size-8' />
                     </button>
                     <AppTitle />
-                    <button onClick={() => { }} className=''>
+                    <span className='min-w-8'></span>
+                    {/* <button onClick={() => { }} className=''>
                         <img src={ajustes_icon} className='size-8' />
-                    </button>
+                    </button> */}
                 </nav>
             </div>
         </>

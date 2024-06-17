@@ -6,7 +6,7 @@ export const useIsPantallaMovil = (): boolean => {
   useEffect(() => {
     const handleResize = () => {
       // Actualizar el estado basado en el ancho de la pantalla
-      setIsMobile(window.innerWidth < 768); // Puedes ajustar este valor según tus necesidades
+      setIsMobile(window.innerWidth < 1024); // Puedes ajustar este valor según tus necesidades
     };
 
     // Verificar el tamaño de la pantalla al inicio

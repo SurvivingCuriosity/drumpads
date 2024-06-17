@@ -1,45 +1,68 @@
-import { useMemo } from "react";
-import { useAppContext } from "../context/AppContext";
-import { Categories } from "../db/Categories";
-
+import { useMemo, useState } from "react";
+import { Categories } from "../db/interfaces/Categories";
 import { SonidoListItem } from "./SonidoListItem";
+import { useAppContext } from "../context/useAppContext";
+import { SoundFull } from "../db/interfaces/Sound";
 
 export interface ListaTodosSonidosProps {
     esMovil: boolean;
 }
 
 export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
+    const { esMovil } = props;
+    const { allSounds } = useAppContext();
 
-    const { esMovil } = props
+    const kicks = useMemo(() => allSounds.filter(sound => sound.category === Categories.KICKS), [allSounds]);
+    const snares = useMemo(() => allSounds.filter(sound => sound.category === Categories.SNARES), [allSounds]);
+    const hihats = useMemo(() => allSounds.filter(sound => sound.category === Categories.HIHATS), [allSounds]);
+    const openhats = useMemo(() => allSounds.filter(sound => sound.category === Categories.OPENHATS), [allSounds]);
+    const claps = useMemo(() => allSounds.filter(sound => sound.category === Categories.CLAPS), [allSounds]);
+    const percs = useMemo(() => allSounds.filter(sound => sound.category === Categories.PERCS), [allSounds]);
+    const others = useMemo(() => allSounds.filter(sound => sound.category === Categories.OTHERS), [allSounds]);
 
-    const { sounds } = useAppContext();
+    const [activeCategory, setActiveCategory] = useState<Categories | null>(null);
 
-    const kicks = useMemo(() => sounds.filter(sound => sound.category === Categories.KICKS), [sounds]);
-    const claps = useMemo(() => sounds.filter(sound => sound.category === Categories.CLAPS), [sounds]);
-    const snares = useMemo(() => sounds.filter(sound => sound.category === Categories.SNARES), [sounds]);
-    const hihats = useMemo(() => sounds.filter(sound => sound.category === Categories.HIHATS), [sounds]);
-    const percs = useMemo(() => sounds.filter(sound => sound.category === Categories.PERCS), [sounds]);
-    const others = useMemo(() => sounds.filter(sound => sound.category === Categories.OTHERS), [sounds]);
+    const handleClickCategory = (newCategory: Categories) => {
+        const category = activeCategory === newCategory ? null : newCategory;
+        setActiveCategory(category);
+    };
 
-
-    const allSounds = [...kicks, ...claps, ...snares, ...hihats, ...percs, ...others];
+    const renderCategory = (category: Categories, sounds: SoundFull[], label: string) => {
+        return (
+            <div key={category}>
+                <p
+                    onClick={() => handleClickCategory(category)}
+                    className="mb-2 cursor-pointer border-b border-fuchsia-400/70 p-2 text-fuchsia-400/70"
+                >
+                    {label}
+                </p>
+                <ul
+                    style={{ gridTemplateRows: activeCategory === category ? '1fr' : '0fr' }}
+                    className="grid flex-col gap-2 overflow-hidden transition-[grid-template-rows] duration-500"
+                >
+                    <div className="flex flex-col gap-1 overflow-hidden">
+                        {sounds.map((sound) => (
+                            <div key={sound.audioSrc} className="w-full">
+                                <SonidoListItem sonido={sound} esMovil={esMovil} />
+                            </div>
+                        ))}
+                    </div>
+                </ul>
+            </div>
+        );
+    };
 
     return (
         <div className="">
-            <ul className="mb-4 flex flex-col gap-2">
-                {allSounds.map((sound, index) => {
-                    return (
-                        <div key={sound.key} className="w-full">
-                            {
-                                index === 0 || allSounds[index + 1]?.category !== sound?.category
-                                    ? <p className="max-w-32 border-b border-fuchsia-400/70 text-fuchsia-400/70">{sound.category}</p>
-                                    : null
-                            }
-                            <SonidoListItem key={sound.key} sonido={sound} esMovil={esMovil} />
-                        </div>
-                    )
-                })}
+            <ul className="mb-4 overflow-y-auto">
+                {renderCategory(Categories.KICKS, kicks, 'Kicks')}
+                {renderCategory(Categories.SNARES, snares, 'Snares')}
+                {renderCategory(Categories.HIHATS, hihats, 'Hi hats')}
+                {renderCategory(Categories.OPENHATS, openhats, 'Open hats')}
+                {renderCategory(Categories.CLAPS, claps, 'Claps')}
+                {renderCategory(Categories.PERCS, percs, 'Percs')}
+                {renderCategory(Categories.OTHERS, others, 'Other')}
             </ul>
         </div>
-    )
-}
+    );
+};

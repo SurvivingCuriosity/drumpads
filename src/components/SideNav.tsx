@@ -1,17 +1,15 @@
+import { useAppContext } from "../context/useAppContext";
 import { ListaTodosSonidos } from "./ListaTodosSonidos";
 
-export interface SideNavProps {
-    isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void;
-}
 
-export const SideNav = (props: SideNavProps) => {
-    const { isOpen } = props;
+export const SideNav = () => {
     
+    const {sideNavOpened} = useAppContext()
+
     return (
-        <div className={`absolute ${isOpen ? 'right-0': 'right-full'} top-12 z-50 h-[calc(100vh_-_3em)] w-full bg-neutral-900 transition-all duration-200`}>
+        <div className={`absolute ${sideNavOpened ? 'right-0': 'right-full'} top-12 z-50 h-full w-full bg-neutral-900 transition-all duration-200 overflow-y-scroll`}>
             <div className="p-8">
-                <ListaTodosSonidos esMovil/>
+                <ListaTodosSonidos esMovil />
             </div>
         </div>
     )
