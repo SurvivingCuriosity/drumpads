@@ -32,7 +32,7 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
             <div key={category}>
                 <p
                     onClick={() => handleClickCategory(category)}
-                    className="mb-2 cursor-pointer border-b border-fuchsia-400/70 p-2 text-fuchsia-400/70"
+                    className="mb-2 cursor-pointer border-b border-amber-400/70 p-2 text-amber-400/70"
                 >
                     {label}
                 </p>
@@ -54,7 +54,7 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
 
     return (
         <div className="">
-            <ul className="mb-4 overflow-y-auto">
+            <ul className="mb-4">
                 {renderCategory(Categories.KICKS, kicks, 'Kicks')}
                 {renderCategory(Categories.SNARES, snares, 'Snares')}
                 {renderCategory(Categories.HIHATS, hihats, 'Hi hats')}

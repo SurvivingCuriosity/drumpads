@@ -1,8 +1,5 @@
-import { labeledClaps } from "../Claps";
-import { labeledClosehats } from "../CloseHats";
-import { labeledKicks } from "../Kicks";
-import { labeledSnares } from "../Snares";
 import { Sound } from "../interfaces/Sound";
+import { labeledClaps, labeledClosehats, labeledKicks, labeledSnares } from "../sounds";
 
 export const default_preset: Sound[] = [
   labeledSnares.drillSnare,

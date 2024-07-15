@@ -23,6 +23,7 @@ export const PresetPicker = () => {
 
     return (
         <Select
+            aria-label='Preset picker'
             value={selectedValue}
             defaultValue={selectedValue}
             theme={(theme) => ({
@@ -51,7 +52,7 @@ export const PresetPicker = () => {
                 }),
                 dropdownIndicator: (base) => ({
                     ...base,
-                    backgroundColor: '#555',
+                    backgroundColor: '#A0A0A0',
                     color: '#222',
                     borderTopRightRadius: '8px',
                     borderBottomRightRadius: '8px',
@@ -73,17 +74,17 @@ export const PresetPicker = () => {
                 menuList: (base) => ({
                     ...base,
                     backgroundColor: '#262626',
-                    color: '#777',
+                    color: '#A0A0A0',
                     borderRadius: '8px',
                 }),
                 singleValue: (base) => ({
                     ...base,
-                    color: '#777',
+                    color: '#A0A0A0',
                 }),
                 option: (base, { isSelected }) => ({
                     ...base,
                     backgroundColor: isSelected ? '#c026d3' : '#262626',
-                    color: isSelected ? '#262626' : '#777',
+                    color: isSelected ? '#262626' : '#AAA',
                     '&:hover': {
                         backgroundColor: '#c026d3',
                         color: '#262626',

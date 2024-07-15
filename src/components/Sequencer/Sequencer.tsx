@@ -1,25 +1,25 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { SoundFull } from "../../db/interfaces/Sound"
-import { BPMInput } from "./BPMInput"
-import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil"
 import { useAppContext } from "../../context/useAppContext"
 import { ScreenContent } from "../../db/interfaces/ScreenContent"
+import { SoundFull } from "../../db/interfaces/Sound"
+import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil"
+import { BPMInput } from "./BPMInput"
 
 export const Sequencer = () => {
 
     const { currentSounds, play, bpm, screenContent } = useAppContext()
     const isPantallaMovil = useIsPantallaMovil()
-    
-    const bars = useMemo(() => isPantallaMovil ? 4 : 8, [isPantallaMovil])
-    
-    const steps = useMemo(() => new Array(bars * 4).fill({}), [bars])
-    
-    useEffect(()=>{
-        setSequence(new Array(bars * 4).fill([]) as string[][]) 
-        sequenceRef.current = new Array(bars * 4).fill([]) as string[][]
-    },[bars])
 
-    const mostrarSequencer = useMemo(() => screenContent === ScreenContent.Sequencer || screenContent === ScreenContent.Both, [screenContent])
+    const bars = useMemo(() => isPantallaMovil ? 4 : 8, [isPantallaMovil])
+
+    const steps = useMemo(() => new Array(bars * 4).fill({}), [bars])
+
+    useEffect(() => {
+        setSequence(new Array(bars * 4).fill([]) as string[][])
+        sequenceRef.current = new Array(bars * 4).fill([]) as string[][]
+    }, [bars])
+
+    const mostrarSequencer = useMemo(() => screenContent === ScreenContent.Sequencer, [screenContent])
 
     const [sequence, setSequence] = useState<string[][]>(new Array(bars * 4).fill([]) as string[][])
     const sequenceRef = useRef(sequence)
@@ -61,8 +61,8 @@ export const Sequencer = () => {
         const playing = setInterval(() => {
             console.log(activeStep.current);
             console.log(sequenceRef.current.length);
-            
-            
+
+
             const sonidos = currentSounds.filter(s => sequenceRef.current[activeStep.current]?.includes(s?.key ?? ''));
             sonidos.forEach(s => play(s));
             setActiveStepState(activeStep.current)
@@ -98,60 +98,44 @@ export const Sequencer = () => {
     }
 
     return (
-        <div className={`${!isPantallaMovil || mostrarSequencer ? 'flex' : 'hidden'} w-min max-w-screen-2xl rounded-lg bg-neutral-900 p-4 flex-col items-center`}> 
-            <span className="flex items-center gap-2">
-                <button onClick={togglePlay} className={`min-w-16 rounded-lg bg-neutral-800/50 px-2 py-1 border transition-colors duration-300 ${!isPlaying ? 'text-neutral-500 border-neutral-500' : ' border-fuchsia-500 text-fuchsia-500'}`}>
+        <div className={`${!isPantallaMovil || mostrarSequencer ? 'flex' : 'hidden'} w-min max-w-screen-2xl rounded-lg bg-neutral-900 p-4 flex-col items-center gap-2 mx-auto`}>
+            <span className="mr-auto flex items-center gap-2">
+                <button onClick={togglePlay} className={`min-w-16 rounded-lg bg-neutral-800/50 px-2 py-1 border transition-colors duration-300 ${!isPlaying ? 'text-neutral-400 border-neutral-500' : ' border-amber-500 text-amber-500'}`}>
                     {isPlaying ? 'Stop' : 'Play'}
                 </button>
-                <button onClick={handleClickReset} className={`min-w-16 rounded-lg border border-neutral-500 bg-neutral-800/50 px-2 py-1 text-neutral-500 transition-colors duration-300`}>
+                <button onClick={handleClickReset} className={`min-w-16 rounded-lg border border-neutral-500 bg-neutral-800/50 px-2 py-1 text-neutral-400 transition-colors duration-300`}>
                     Reset
                 </button>
                 <BPMInput disabled={isPlaying} />
-                <button onClick={handleClickHalfSpeed} disabled={isPlaying} className={`disabled:text-neutral-700 disabled:border-neutral-700 rounded-lg border bg-neutral-800/50 px-2 py-1 ${halfSpeed === 4 ? 'text-neutral-500 border-neutral-500' : ' border-fuchsia-500 text-fuchsia-500'} transition-colors duration-300`}>
+                <button onClick={handleClickHalfSpeed} disabled={isPlaying} className={`disabled:text-neutral-700 disabled:border-neutral-700 rounded-lg border bg-neutral-800/50 px-2 py-1 ${halfSpeed === 4 ? 'text-neutral-400 border-neutral-500' : ' border-amber-500 text-amber-500'} transition-colors duration-300`}>
                     {'/2'}
                 </button>
             </span>
 
             <div className="flex flex-row gap-0.5 lg:flex-col lg:gap-0">
-
-                {sonidosValidos.length > 0 &&
-                    <ol className="flex flex-col items-center justify-start gap-0.5 pt-12 lg:flex-row lg:justify-between lg:pt-0">
-                        <span className="h-[22px] w-[50px] lg:h-0"></span>
-                        {steps.map((_step, index) => (
-                            <li
-                                key={_step + index}
-                                className={`size-6 text-center rounded-sm -rotate-90 lg:rotate-0
-                                ${activeStepState === index && isPlaying
-                                        ? 'text-neutral-500'
-                                        : 'text-neutral-800'}
-                            `}>{'↓'}
-                            </li>
-                        ))}
-                    </ol>
-                }
-
                 {sonidosValidos.length === 0
                     ?
-                    <p className="pt-4 text-neutral-500">{'(No sounds)'}</p>
+                    <p className="pt-4 text-neutral-400">{'(No sounds)'}</p>
                     :
                     sonidosValidos.map((s, soundIndex) => (
-                        <div className="mb-1 flex flex-col items-center pt-12 lg:flex-row lg:pt-0" key={('s' + s?.audioSrc ?? 'undefined') + 'seq'+soundIndex}>
-                            <p className={`whitespace-nowrap lg:w-16 lg:truncate ${s?.playing ? 'text-fuchsia-500' : 'text-neutral-600'}`}>{soundIndex+1}</p>
+                        <div className="mb-1 flex flex-col items-center pt-4 lg:flex-row lg:pt-0" key={('s' + s?.audioSrc ?? 'undefined') + 'seq' + soundIndex}>
+                            <p className={`whitespace-nowrap lg:w-16 lg:truncate ${s?.playing ? 'text-amber-500' : 'text-neutral-400'}`}>{soundIndex + 1}</p>
                             <ol className="flex w-full flex-col items-center justify-between gap-0.5 lg:flex-row">
                                 {steps.map((_step, index) => (
-                                   <li
-                                   key={(s?.audioSrc ?? 'undefined') + soundIndex + index}
-                                   onClick={() => { handleStepClick(s, index, soundIndex) }}
-                                   className={`
-                                       ${sequence[index]?.includes(currentSounds[soundIndex]?.key ?? '') 
-                                           ? activeStepState === index && isPlaying 
-                                               ? 'bg-fuchsia-500/40 border-fuchsia-300' 
-                                               : 'bg-fuchsia-500/20 border-fuchsia-500'
-                                           : index % (halfSpeed*2) === 0 
-                                               ? 'bg-neutral-800/20 border-neutral-700'
-                                               : 'bg-neutral-900 border-neutral-800'}
+                                    <li
+                                        key={(s?.audioSrc ?? 'undefined') + soundIndex + index}
+                                        onClick={() => { handleStepClick(s, index, soundIndex) }}
+                                        className={`
+                                    transition-colors duration-300
+                                       ${sequence[index]?.includes(currentSounds[soundIndex]?.key ?? '')
+                                                ? activeStepState === index && isPlaying
+                                                    ? 'bg-amber-200/40 border-amber-500'
+                                                    : 'bg-amber-500/20 border-amber-500'
+                                                : index % (halfSpeed * 2) === 0
+                                                    ? 'bg-neutral-800/20 border-neutral-700'
+                                                    : 'bg-neutral-900 border-neutral-800'}
                                        border rounded-sm size-6`}>
-                               </li>
+                                    </li>
                                 ))}
                             </ol>
                         </div>

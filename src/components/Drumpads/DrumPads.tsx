@@ -20,21 +20,21 @@ const DrumPads = () => {
 
     const isPantallaMovil = useIsPantallaMovil()
 
-    const mostrarDrumPads = useMemo(() => screenContent === ScreenContent.Drumpad || screenContent === ScreenContent.Both, [screenContent])
+    const mostrarDrumPads = useMemo(() => screenContent === ScreenContent.Drumpad, [screenContent])
 
     
     return (
-        <div className={`${!isPantallaMovil || mostrarDrumPads ? 'block' : 'hidden'} w-full max-w-screen-sm rounded-lg bg-neutral-900 p-4`}>
-            <div className='mb-2 flex items-center justify-between gap-2'>
+        <div className={`${!isPantallaMovil || mostrarDrumPads ? 'block' : 'hidden'}  flex flex-col justify-between max-w-[500px] rounded-lg bg-neutral-900 p-4`}>
+            <div className='mb-3 flex items-center justify-between gap-2'>
                 <PresetPicker />
                 <button onClick={() => setShowingShortcuts(!showingShortcuts)} className='rounded-md border border-neutral-800 bg-neutral-900'>
-                    <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-8' />
+                    <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-8' alt="Keyboard icon" />
                 </button>
-                <button onClick={() => setShowControls(!showControls)} className='rounded-md border border-neutral-800 bg-neutral-900'>
-                    <img src={knobs} className='size-8' />
+                <button onClick={() => setShowControls(!showControls)} className='block rounded-md border border-neutral-800 bg-neutral-900 lg:hidden'>
+                    <img src={knobs} className='size-8' alt="Knobs icon" />
                 </button>
                 <button onClick={() => setShowingPadsSettings(!showingPadsSettings)} className='rounded-md border border-neutral-800 bg-neutral-900'>
-                    <img src={settings} className='size-8' />
+                    <img src={settings} className='size-8' alt="Settings icon" />
                 </button>
             </div>
             {showControls && <Controls />}

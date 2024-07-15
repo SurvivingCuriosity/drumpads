@@ -1,28 +1,17 @@
-
-// create context
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { claps } from '../db/Claps';
-import { closehats } from '../db/CloseHats';
 import { Sound, SoundFull } from '../db/interfaces/Sound';
-import { kicks } from '../db/Kicks';
-import { Presets } from '../db/presets/Presets';
-import { reggaeton_preset } from '../db/presets/ReggaetonPreset';
-import { techno_preset } from '../db/presets/TechnoPreset';
-import { snares } from '../db/Snares';
 import AudioManager from '../services/AudioManager';
-import { empty_preset } from '../db/presets/EmptyPreset';
-import { percs } from '../db/Percs';
-import { openhats } from '../db/OpenHats';
 import { ScreenContent } from '../db/interfaces/ScreenContent';
-
-type ComplexEvent = React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>
+import { empty_preset, Presets, reggaeton_preset, techno_preset } from '../db/presets';
+import { claps, closehats, kicks, openhats, percs, snares } from '../db/sounds';
+import { PlayEvent } from '../db/interfaces/PlayEvent';
 
 export interface AppContext {
     allSounds: SoundFull[];
+    setAllSounds: (sounds: SoundFull[]) => void;
     currentSounds: Array<SoundFull | undefined>;
     setCurrentSounds: (sounds: Array<SoundFull | undefined>) => void;
-    setAllSounds: (sounds: SoundFull[]) => void;
-    playSound: (e: ComplexEvent) => void; // Ajustar el tipo del evento
+    playSound: (e: PlayEvent) => void;
     isTouch: boolean;
     showingShortcuts: boolean;
     setShowingShortcuts: (value: boolean) => void;
@@ -32,41 +21,50 @@ export interface AppContext {
     setBpm: (value: number) => void;
     screenContent: ScreenContent;
     setScreenContent: (value: ScreenContent) => void;
-    handlePresetChange: (newPreset: Presets) => void;
     preset: Presets;
+    handlePresetChange: (newPreset: Presets) => void;
     sideNavOpened: boolean;
     setSideNavOpened: (value: boolean) => void;
     padModificando: number | null;
     setPadModificando: (value: number | null) => void;
     showingPadsSettings: boolean;
     setShowingPadsSettings: (value: boolean) => void;
+    isDragging: boolean;
+    setIsDragging: (value: boolean) => void;
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext);
 
-// create provider
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
+
+
+    // Teclas que accionan los diferentes pads
     const keyMap = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+
+    // Todos los sonidos que tiene la aplicación
+    const [allSounds, setAllSounds] = useState<SoundFull[]>([...kicks, ...snares, ...closehats, ...claps, ...percs, ...openhats].map((sound, index) => ({
+        ...sound,
+        playing: false,
+        volume: 1,
+        audioObj: null,
+        key: keyMap[index] || ''
+    }))
+    );
+
+    const [preset, setPreset] = useState<Presets>(Presets.Techno);
     const presetMap: { [key in Presets]: Array<Sound | undefined> } = {
         [Presets.Reggaeton]: reggaeton_preset,
         [Presets.Techno]: techno_preset,
-        [Presets.Trap]: empty_preset, // Preset vacío, puedes agregar sonidos aquí
-        [Presets.HipHop]: empty_preset, // Preset vacío, puedes agregar sonidos aquí
-        [Presets.Empty]: empty_preset, // Preset vacío
+        [Presets.Trap]: empty_preset,
+        [Presets.HipHop]: empty_preset,
+        [Presets.Empty]: empty_preset,
     };
-    const [allSounds, setAllSounds] = useState<SoundFull[]>([...kicks, ...snares, ...closehats, ...claps, ...percs, ...openhats]
-        .map((sound, index) => ({
-            ...sound,
-            playing: false,
-            volume: 1,
-            audioObj: null,
-            key: keyMap[index] || 'p'
-        })));
 
+    // Clase encargada de manejar el audio
     const audioManager = useMemo(() => new AudioManager(allSounds), []);
 
-    const [preset, setPreset] = useState<Presets>(Presets.Techno);
 
+    // Sonidos seleccionados (máximo 9)
     const [currentSounds, setCurrentSounds] = useState<Array<SoundFull | undefined>>(presetMap[preset].map((sound, index) => {
         if (sound === undefined) return undefined;
         return {
@@ -87,19 +85,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const [sideNavOpened, setSideNavOpened] = useState<boolean>(false);
     const [padModificando, setPadModificando] = useState<number | null>(null);
     const [showingPadsSettings, setShowingPadsSettings] = useState<boolean>(false);
-
+    const [isDragging, setIsDragging] = useState<boolean>(false);
 
     const handlePresetChange = (newPreset: Presets) => {
         setPreset(newPreset);
-        console.log(presetMap[newPreset].map((sound, index) => ({
-            audioSrc: sound?.audioSrc || '',
-            label: sound?.label || '',
-            category: sound?.category || undefined,
-            playing: false,
-            volume: 1,
-            audioObj: null,
-            key: keyMap[index] || 'p'
-        })));
 
         setCurrentSounds(presetMap[newPreset].map((sound, index) => ({
             audioSrc: sound?.audioSrc || '',
@@ -112,9 +101,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         })));
     };
 
-    const playSound = useCallback((e: ComplexEvent) => {
-        console.log(currentSounds);
-
+    const playSound = useCallback((e: PlayEvent) => {
         if (!audioManager) return; // Agrega verificación de audioManager
 
         let eventIndex: number = -1;
@@ -154,20 +141,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         }, 100);
     }, [currentSounds, audioManager]);
 
-    useEffect(() => {
-        const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement> | KeyboardEvent) => playSound(e as React.KeyboardEvent<HTMLDivElement>);
-        window.addEventListener('keydown', handleKeyDown);
-
-        const handleTouchStart = () => setIsTouch(true);
-        window.addEventListener('touchstart', handleTouchStart, { once: true });
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [playSound]);
-
-
     const play = useCallback((sound: SoundFull | undefined) => {
         if (!audioManager) return; // Agrega verificación de audioManager
         if (sound === undefined) return;
@@ -201,8 +174,21 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
     }, [currentSounds, audioManager]);
 
+    useEffect(() => {
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement> | KeyboardEvent) => playSound(e as React.KeyboardEvent<HTMLDivElement>);
+        window.addEventListener('keydown', handleKeyDown);
+
+        const handleTouchStart = () => setIsTouch(true);
+        window.addEventListener('touchstart', handleTouchStart, { once: true });
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [playSound]);
+
     return (
-        <AppContext.Provider value={{ playSound, isTouch, setIsTouch, showingShortcuts, setShowingShortcuts, play, bpm, setBpm, screenContent, setScreenContent, setAllSounds, currentSounds, setCurrentSounds, allSounds, handlePresetChange, preset, sideNavOpened, setSideNavOpened, padModificando, setPadModificando, showingPadsSettings, setShowingPadsSettings }}>
+        <AppContext.Provider value={{ playSound, isTouch, setIsTouch, showingShortcuts, setShowingShortcuts, play, bpm, setBpm, screenContent, setScreenContent, setAllSounds, currentSounds, setCurrentSounds, allSounds, handlePresetChange, preset, sideNavOpened, setSideNavOpened, padModificando, setPadModificando, showingPadsSettings, setShowingPadsSettings, isDragging, setIsDragging }}>
             {children}
         </AppContext.Provider>
     );

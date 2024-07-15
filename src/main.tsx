@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './assets/index.css'
 import { AppProvider } from './context/AppContext.tsx'
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AppProvider>
@@ -11,3 +12,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </AppProvider>
   </React.StrictMode>,
 )
+

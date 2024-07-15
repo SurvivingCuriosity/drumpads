@@ -24,7 +24,7 @@ export const Tabs = (props: TabsProps) => {
         <ul className="rounded-xl bg-neutral-900 p-1">
             <div className="relative flex flex-row justify-between">
                 <li
-                    className="absolute h-full cursor-pointer rounded-lg bg-neutral-700/20 px-2 py-1 text-center transition-transform duration-300 ease-in-out"
+                    className="absolute h-full cursor-pointer rounded-lg bg-neutral-500/20 px-2 py-1 text-center transition-transform duration-300 ease-in-out"
                     style={{
                         width: `${tabWidth}%`,
                         transform: `translateX(${activeIndex * 100}%)`

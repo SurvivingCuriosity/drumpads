@@ -1,9 +1,6 @@
-import { labeledClaps } from "../Claps";
-import { labeledClosehats } from "../CloseHats";
-import { labeledKicks } from "../Kicks";
-import { labeledOpenhats } from "../OpenHats";
-import { labeledPercs } from "../Percs";
+
 import { Sound } from "../interfaces/Sound";
+import { labeledClaps, labeledClosehats, labeledKicks, labeledOpenhats, labeledPercs } from "../sounds";
 
 export const techno_preset: Array<Sound|undefined> = [
   labeledPercs.revPerc,

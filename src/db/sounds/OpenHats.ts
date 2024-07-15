@@ -1,5 +1,5 @@
-import { Categories } from "./interfaces/Categories";
-import { Sound } from "./interfaces/Sound";
+import { Categories } from "../interfaces/Categories";
+import { Sound } from "../interfaces/Sound";
 
 export const openhats:Sound[] = [
     {

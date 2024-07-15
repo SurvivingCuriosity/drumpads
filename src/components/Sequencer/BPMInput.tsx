@@ -28,6 +28,7 @@ export const BPMInput = (props: BPMInputProps) => {
         <span className="relative">
 
             <input
+                aria-label="BPM"
                 onBlur={handleBlur}
                 type="number"
                 className={`w-28 rounded-lg border border-neutral-500 bg-neutral-800/50 px-2 py-1 pl-12 text-neutral-500 transition-colors duration-300 disabled:border-neutral-700 disabled:text-neutral-700`}
@@ -37,7 +38,7 @@ export const BPMInput = (props: BPMInputProps) => {
                 min={50}
                 max={200}
             />
-            <p className={`absolute left-1 top-1/2 -translate-y-1/2 transition-colors duration-300 ${disabled ? 'text-neutral-700' : 'text-neutral-500'}`}>BPM: </p>
+            <p className={`absolute left-1 top-1/2 -translate-y-1/2 transition-colors duration-300 ${disabled ? 'text-neutral-700' : 'text-neutral-400'}`}>BPM: </p>
         </span>
 
     )
