@@ -72,7 +72,7 @@ export const SonidoListItem = (props: SonidoListItemProps) => {
             onClick={handleClickSonido}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="opacity-1 flex h-min items-center justify-between rounded-lg bg-neutral-800/50 p-2 text-neutral-500"
+            className="opacity-1 flex h-min items-center justify-between rounded-lg bg-neutral-800/50 p-2 text-neutral-400"
         >
             {mostrarDragIcon && (
                 <button

@@ -15,3 +15,128 @@ body {
     user-select: none;
     overflow-x: hidden;
 }
+
+:root {
+    /* Yellow Theme */
+    --yellow: 54 100% 50%;
+    --yellow-light: 54 100% 60%;
+    --yellow-lighter: 54 100% 70%;
+    --yellow-lightest: 54 100% 80%;
+    --yellow-dark: 54 100% 40%;
+    --yellow-darker: 54 100% 30%;
+    --yellow-darkest: 54 100% 20%;
+
+    --primary: var(--yellow);
+    --primary-light: var(--yellow-light);
+    --primary-lighter: var(--yellow-lighter);
+    --primary-lightest: var(--yellow-lightest);
+    --primary-dark: var(--yellow-dark);
+    --primary-darker: var(--yellow-darker);
+    --primary-darkest: var(--yellow-darkest);
+
+
+    /* Orange Theme */
+    --orange: 39 100% 50%;
+    --orange-light: 39 100% 60%;
+    --orange-lighter: 39 100% 70%;
+    --orange-lightest: 39 100% 80%;
+    --orange-dark: 39 100% 40%;
+    --orange-darker: 39 100% 30%;
+    --orange-darkest: 39 100% 20%;
+
+    /* Red Theme */
+    --red: 349 100% 50%;
+    --red-light: 349 100% 60%;
+    --red-lighter: 349 100% 70%;
+    --red-lightest: 349 100% 80%;
+    --red-dark: 349 100% 40%;
+    --red-darker: 349 100% 30%;
+    --red-darkest: 349 100% 20%;
+
+    /* Pink Theme */
+    --pink: 301 100% 50%;
+    --pink-light: 301 100% 60%;
+    --pink-lighter: 301 100% 70%;
+    --pink-lightest: 301 100% 80%;
+    --pink-dark: 301 100% 40%;
+    --pink-darker: 301 100% 30%;
+    --pink-darkest: 301 100% 20%;
+
+    /* Green Theme */
+    --green: 135 100% 50%;
+    --green-light: 135 100% 60%;
+    --green-lighter: 135 100% 70%;
+    --green-lightest: 135 100% 80%;
+    --green-dark: 135 100% 40%;
+    --green-darker: 135 100% 30%;
+    --green-darkest: 135 100% 20%;
+
+    /* Blue Theme */
+    --blue: 190 100% 50%;
+    --blue-light: 190 100% 60%;
+    --blue-lighter: 190 100% 70%;
+    --blue-lightest: 190 100% 80%;
+    --blue-dark: 190 100% 40%;
+    --blue-darker: 190 100% 30%;
+    --blue-darkest: 190 100% 20%;
+}
+
+[data-theme='yellow'] {
+    --primary: var(--yellow);
+    --primary-light: var(--yellow-light);
+    --primary-lighter: var(--yellow-lighter);
+    --primary-lightest: var(--yellow-lightest);
+    --primary-dark: var(--yellow-dark);
+    --primary-darker: var(--yellow-darker);
+    --primary-darkest: var(--yellow-darkest);
+}
+
+[data-theme='orange'] {
+    --primary: var(--orange);
+    --primary-light: var(--orange-light);
+    --primary-lighter: var(--orange-lighter);
+    --primary-lightest: var(--orange-lightest);
+    --primary-dark: var(--orange-dark);
+    --primary-darker: var(--orange-darker);
+    --primary-darkest: var(--orange-darkest);
+}
+
+[data-theme='red'] {
+    --primary: var(--red);
+    --primary-light: var(--red-light);
+    --primary-lighter: var(--red-lighter);
+    --primary-lightest: var(--red-lightest);
+    --primary-dark: var(--red-dark);
+    --primary-darker: var(--red-darker);
+    --primary-darkest: var(--red-darkest);
+}
+
+[data-theme='pink'] {
+    --primary: var(--pink);
+    --primary-light: var(--pink-light);
+    --primary-lighter: var(--pink-lighter);
+    --primary-lightest: var(--pink-lightest);
+    --primary-dark: var(--pink-dark);
+    --primary-darker: var(--pink-darker);
+    --primary-darkest: var(--pink-darkest);
+}
+
+[data-theme='green'] {
+    --primary: var(--green);
+    --primary-light: var(--green-light);
+    --primary-lighter: var(--green-lighter);
+    --primary-lightest: var(--green-lightest);
+    --primary-dark: var(--green-dark);
+    --primary-darker: var(--green-darker);
+    --primary-darkest: var(--green-darkest);
+}
+
+[data-theme='blue'] {
+    --primary: var(--blue);
+    --primary-light: var(--blue-light);
+    --primary-lighter: var(--blue-lighter);
+    --primary-lightest: var(--blue-lightest);
+    --primary-dark: var(--blue-dark);
+    --primary-darker: var(--blue-darker);
+    --primary-darkest: var(--blue-darkest);
+}

@@ -32,7 +32,7 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
             <div key={category}>
                 <p
                     onClick={() => handleClickCategory(category)}
-                    className="mb-2 cursor-pointer border-b border-amber-400/70 p-2 text-amber-400/70"
+                    className="mb-2 cursor-pointer border-b border-primary p-2 text-primary"
                 >
                     {label}
                 </p>

@@ -45,15 +45,15 @@ export const Pad = (props: ButtonProps) => {
     <div
       ref={setNodeRef}
       data-key={index + 1}
-      className={`relative border-2 rounded-lg transition-all bg-neutral-800/50 min-w-28 w-full aspect-square 
-        ${dragIsOver ? 'bg-amber-500/30 border-amber-400'
+      className={`relative border-2 rounded-lg transition-all bg-neutral-800/50 w-full aspect-square 
+        ${dragIsOver ? 'bg-primary/30 border-primary'
           : isDragging ?
-            ' border-amber-700'
+            'border-primary' 
             : sound?.playing
-              ? 'bg-neutral-300/10 border-amber-500'
+              ? 'bg-neutral-300/10 border-primary'
               : sound?.audioSrc === ''
                 ? 'bg-neutral-400/20 border-neutral-800'
-                : 'bg-neutral-400/20 border-amber-700/50'}`}
+                : 'bg-neutral-400/20 border-primary-darker/60'}`}
       onMouseDown={handlePadClick}
       onTouchStart={handleTouchStart}
     >

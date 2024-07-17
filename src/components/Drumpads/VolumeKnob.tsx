@@ -5,6 +5,7 @@ import volume_highicon from '../../assets/icons/volume_high_2.svg';
 import { useAppContext } from "../../context/useAppContext";
 import { SoundFull } from "../../db/interfaces/Sound";
 import './VolumeKnob.css';
+import { getColorValueFromCss } from "../../helpers/getColorValueFromCss";
 
 export interface VolumeKnobProps {
     isPlaying: boolean;
@@ -49,17 +50,15 @@ export const VolumeKnob = (props: VolumeKnobProps) => {
         }
     }
 
-
-
     return (
         <div className="relative w-8 rounded-md bg-neutral-900">
-            <p className={`absolute left-1/2 top-0 -translate-x-1/2 ${isPlaying ? 'text-amber-500' : 'text-neutral-500'}`}>{index + 1}</p>
+            <p className={`absolute left-1/2 top-0 -translate-x-1/2 ${isPlaying ? 'text-primary' : 'text-neutral-500'}`}>{index + 1}</p>
             <input
                 style={{
-                    background: isPlaying ? '#d946ef' : '#3d3d3d77',
+                    background: isPlaying ? getColorValueFromCss() : '#3d3d3d77',
                     transition: 'background 0.3s ease'
                 }}
-                className='absolute right-1/2 top-[50px] translate-x-1/2 translate-y-1/2 -rotate-90'
+                className={`absolute right-1/2 top-[50px] translate-x-1/2 translate-y-1/2 -rotate-90`}
                 onChange={handleChange}
                 type="range"
                 min="0"

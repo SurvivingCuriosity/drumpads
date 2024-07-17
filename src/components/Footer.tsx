@@ -1,4 +1,5 @@
 import logo from '../../public/logo.svg';
+import { ThemePicker } from './ThemePicker';
 
 export const Footer = () => {
     return (
@@ -20,6 +21,7 @@ export const Footer = () => {
                 </div>
                 <hr className="my-6 border-neutral-500 sm:mx-auto lg:my-8" />
                 <span className="block text-sm text-neutral-400 sm:text-center">© 2024 KrumDit</span>
+                <ThemePicker />
             </div>
         </footer>
 

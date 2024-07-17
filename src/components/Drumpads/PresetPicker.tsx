@@ -2,6 +2,7 @@ import Select, { SingleValue } from 'react-select';
 import { Presets } from '../../db/presets/Presets';
 import { useAppContext } from '../../context/useAppContext';
 import { useState } from 'react';
+import { getColorValueFromCss } from '../../helpers/getColorValueFromCss';
 
 export const PresetPicker = () => {
     const { handlePresetChange, preset } = useAppContext();
@@ -31,10 +32,10 @@ export const PresetPicker = () => {
                 borderRadius: 8,
                 colors: {
                     ...theme.colors,
-                    primary25: '#c026d3', // Color de fondo para la opción en hover
-                    primary: '#c026d3', // Color de fondo para la opción seleccionada
+                    primary25: getColorValueFromCss(), // Color de fondo para la opción en hover
+                    primary: getColorValueFromCss(), // Color de fondo para la opción seleccionada
                     neutral0: '#262626', // Color de fondo del menú
-                    neutral80: '#c026d3', // Color del texto de la opción seleccionada
+                    neutral80: getColorValueFromCss(), // Color del texto de la opción seleccionada
                 },
             })}
             styles={{
@@ -47,7 +48,7 @@ export const PresetPicker = () => {
                     ...base,
                     backgroundColor: '#262626',
                     border: 'none',
-                    color: '#c026d3',
+                    color: getColorValueFromCss(),
                     borderRadius: '8px',
                 }),
                 dropdownIndicator: (base) => ({
@@ -83,10 +84,10 @@ export const PresetPicker = () => {
                 }),
                 option: (base, { isSelected }) => ({
                     ...base,
-                    backgroundColor: isSelected ? '#c026d3' : '#262626',
+                    backgroundColor: isSelected ? getColorValueFromCss() : '#262626',
                     color: isSelected ? '#262626' : '#AAA',
                     '&:hover': {
-                        backgroundColor: '#c026d3',
+                        backgroundColor: getColorValueFromCss(),
                         color: '#262626',
                     },
                 }),
