@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { Categories } from "../db/interfaces/Categories";
-import { SonidoListItem } from "./SonidoListItem";
 import { useAppContext } from "../context/useAppContext";
+import { Categories } from "../db/interfaces/Categories";
 import { SoundFull } from "../db/interfaces/Sound";
+import { SonidoListItem } from "./SonidoListItem";
+import { IconProps } from "./icons/IconProps";
 
 export interface ListaTodosSonidosProps {
     esMovil: boolean;
@@ -27,15 +28,20 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
         setActiveCategory(category);
     };
 
-    const renderCategory = (category: Categories, sounds: SoundFull[], label: string) => {
+    const renderCategory = (category: Categories, sounds: SoundFull[], label: string, IconComponent?: (props: IconProps) => JSX.Element) => {
         return (
             <div key={category}>
-                <p
-                    onClick={() => handleClickCategory(category)}
-                    className="mb-2 cursor-pointer border-b border-primary p-2 text-primary"
-                >
-                    {label}
-                </p>
+
+                <div className="flex w-full items-center border-b border-primary">
+
+                    {IconComponent && <IconComponent size={32} />}
+                    <p
+                        onClick={() => handleClickCategory(category)}
+                        className="mb-2 w-full cursor-pointer p-2 text-primary"
+                    >
+                        {label}
+                    </p>
+                </div>
                 <ul
                     style={{ gridTemplateRows: activeCategory === category ? '1fr' : '0fr' }}
                     className="grid flex-col gap-2 overflow-hidden transition-[grid-template-rows] duration-500"
@@ -55,13 +61,13 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
     return (
         <div className="">
             <ul className="mb-4">
-                {renderCategory(Categories.KICKS, kicks, 'Kicks')}
-                {renderCategory(Categories.SNARES, snares, 'Snares')}
-                {renderCategory(Categories.HIHATS, hihats, 'Hi hats')}
-                {renderCategory(Categories.OPENHATS, openhats, 'Open hats')}
-                {renderCategory(Categories.CLAPS, claps, 'Claps')}
-                {renderCategory(Categories.PERCS, percs, 'Percs')}
-                {renderCategory(Categories.OTHERS, others, 'Other')}
+                {renderCategory(Categories.KICKS, kicks, 'Kicks', kicks[0].icon)}
+                {renderCategory(Categories.SNARES, snares, 'Snares', snares[0].icon)}
+                {renderCategory(Categories.HIHATS, hihats, 'Hi hats', hihats[0].icon)}
+                {renderCategory(Categories.OPENHATS, openhats, 'Open hats', openhats[0].icon)}
+                {renderCategory(Categories.CLAPS, claps, 'Claps', claps[0].icon)}
+                {renderCategory(Categories.PERCS, percs, 'Percs', percs[0].icon)}
+                {renderCategory(Categories.OTHERS, others, 'Other', percs[0].icon)}
             </ul>
         </div>
     );

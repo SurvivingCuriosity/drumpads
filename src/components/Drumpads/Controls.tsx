@@ -3,7 +3,7 @@ import { VolumeKnob } from "./VolumeKnob"
 
 export const Controls = () => {
     return (
-        <div className="flex h-28 w-full justify-between text-white">
+        <div className="flex h-32 w-full justify-between text-white">
             <VolumeControls />
         </div>
     )
@@ -14,7 +14,7 @@ export const VolumeControls = () => {
     const { currentSounds } = useAppContext();
 
     return (
-        <div className="mb-1 flex gap-1">
+        <div className="flex w-full justify-between">
             {currentSounds.map((sound, index) => {
                 if (sound?.audioSrc === '') return null;
                 return (

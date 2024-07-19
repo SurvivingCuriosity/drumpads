@@ -24,13 +24,13 @@ const DrumPads = () => {
 
     
     return (
-        <div className={`${!isPantallaMovil || mostrarDrumPads ? 'block' : 'hidden'} flex flex-col justify-between w-full max-w-[500px] rounded-lg bg-neutral-900 p-4`}>
-            <div className='mb-3 flex items-center justify-between gap-2'>
+        <div className={`${!isPantallaMovil || mostrarDrumPads ? 'block' : 'hidden'} flex flex-col justify-between w-full gap-4 max-w-[450px] rounded-lg bg-neutral-900 p-4`}>
+            <div className='flex items-center justify-between gap-2'>
                 <PresetPicker />
                 <button onClick={() => setShowingShortcuts(!showingShortcuts)} className='rounded-md border border-neutral-500 bg-neutral-900'>
                     <img src={showingShortcuts ? keyboard_off_icon : keyboard_icon} className='size-8' alt="Keyboard icon" />
                 </button>
-                <button onClick={() => setShowControls(!showControls)} className='block rounded-md border border-neutral-500 bg-neutral-900 lg:hidden'>
+                <button onClick={() => setShowControls(!showControls)} className='block rounded-md border border-neutral-500 bg-neutral-900 2xl:hidden'>
                     <img src={knobs} className='size-8' alt="Knobs icon" />
                 </button>
                 <button onClick={() => setShowingPadsSettings(!showingPadsSettings)} className='rounded-md border border-neutral-500 bg-neutral-900'>

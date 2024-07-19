@@ -7,7 +7,8 @@ import { BPMInput } from "./BPMInput"
 
 export const Sequencer = () => {
 
-    const { currentSounds, play, bpm, screenContent } = useAppContext()
+    const { currentSounds, play, bpm, screenContent, sequencerPlaying, setSequencerPlaying } = useAppContext()
+
     const isPantallaMovil = useIsPantallaMovil()
 
     const bars = useMemo(() => isPantallaMovil ? 4 : 8, [isPantallaMovil])
@@ -23,7 +24,7 @@ export const Sequencer = () => {
 
     const [sequence, setSequence] = useState<string[][]>(new Array(bars * 4).fill([]) as string[][])
     const sequenceRef = useRef(sequence)
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(sequencerPlaying)
     const activeStep = useRef(0)
     const [activeStepState, setActiveStepState] = useState(0)
     const [halfSpeed, setHalfSpeed] = useState<2 | 4>(4)
@@ -52,6 +53,7 @@ export const Sequencer = () => {
     }, [currentSounds]);
 
     useEffect(() => {
+        setSequencerPlaying(isPlaying);
         if (!isPlaying) return;
 
         const sonidos = currentSounds.filter(s => sequenceRef.current[0]?.includes(s?.key ?? ''));
@@ -118,7 +120,7 @@ export const Sequencer = () => {
                     <p className="pt-4 text-neutral-400">{'(No sounds)'}</p>
                     :
                     sonidosValidos.map((s, soundIndex) => (
-                        <div className="mb-1 flex flex-col items-center pt-4 lg:flex-row lg:pt-0" key={('s' + s?.audioSrc ?? 'undefined') + 'seq' + soundIndex}>
+                        <div className="mb-1 flex flex-col items-center pt-4 lg:flex-row lg:pt-0" key={('s' + s?.audioSrc) + 'seq' + soundIndex}>
                             <p className={`whitespace-nowrap lg:w-16 lg:truncate ${s?.playing ? 'text-primary' : 'text-neutral-400'}`}>{soundIndex + 1}</p>
                             <ol className="flex w-full flex-col items-center justify-between gap-0.5 lg:flex-row">
                                 {steps.map((_step, index) => (

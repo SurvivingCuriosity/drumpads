@@ -1,10 +1,10 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { Sound, SoundFull } from '../db/interfaces/Sound';
-import AudioManager from '../services/AudioManager';
+import { PlayEvent } from '../db/interfaces/PlayEvent';
 import { ScreenContent } from '../db/interfaces/ScreenContent';
+import { Sound, SoundFull } from '../db/interfaces/Sound';
 import { empty_preset, Presets, reggaeton_preset, techno_preset } from '../db/presets';
 import { claps, closehats, kicks, openhats, percs, snares } from '../db/sounds';
-import { PlayEvent } from '../db/interfaces/PlayEvent';
+import AudioManager from '../services/AudioManager';
 
 export interface AppContext {
     allSounds: SoundFull[];
@@ -31,6 +31,9 @@ export interface AppContext {
     setShowingPadsSettings: (value: boolean) => void;
     isDragging: boolean;
     setIsDragging: (value: boolean) => void;
+    sequencerPlaying: boolean;
+    setSequencerPlaying: (value: boolean) => void;
+    handleCambiarSonido: (idNuevoSonido: string, idPadDestino: number) => void;
 }
 
 export const AppContext = createContext<AppContext>({} as AppContext);
@@ -74,7 +77,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             playing: false,
             volume: 1,
             audioObj: null,
-            key: keyMap[index] || 'p'
+            key: keyMap[index] || 'p',
+            icon: sound?.icon || undefined,
         }
     }));
 
@@ -85,6 +89,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const [sideNavOpened, setSideNavOpened] = useState<boolean>(false);
     const [padModificando, setPadModificando] = useState<number | null>(null);
     const [showingPadsSettings, setShowingPadsSettings] = useState<boolean>(false);
+    const [sequencerPlaying, setSequencerPlaying] = useState<boolean>(false);
     const [isDragging, setIsDragging] = useState<boolean>(false);
 
     const handlePresetChange = (newPreset: Presets) => {
@@ -97,9 +102,26 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             playing: false,
             volume: 1,
             audioObj: null,
-            key: keyMap[index] || 'p'
+            key: keyMap[index] || 'p',
+            icon: sound?.icon || undefined,
         })));
     };
+
+    const handleCambiarSonido = (idNuevoSonido: string, idPadDestino: number) => {
+        const sonidoNuevo = allSounds.find(sonido => sonido.audioSrc === idNuevoSonido);
+        const sonidoPadDestino = currentSounds[idPadDestino];
+
+        if (sonidoNuevo === undefined || sonidoPadDestino === undefined) return;
+
+        setCurrentSounds(prevSounds =>
+            prevSounds.map((sonido, index) =>
+                sonido === undefined
+                    ? undefined
+                    :
+                    index === idPadDestino ? { ...sonido, audioSrc: sonidoNuevo.audioSrc, label: sonidoNuevo.label, category: sonidoNuevo.category, icon: sonidoNuevo.icon } : sonido
+            )
+        );
+    }
 
     const playSound = useCallback((e: PlayEvent) => {
         if (!audioManager) return; // Agrega verificación de audioManager
@@ -188,7 +210,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }, [playSound]);
 
     return (
-        <AppContext.Provider value={{ playSound, isTouch, setIsTouch, showingShortcuts, setShowingShortcuts, play, bpm, setBpm, screenContent, setScreenContent, setAllSounds, currentSounds, setCurrentSounds, allSounds, handlePresetChange, preset, sideNavOpened, setSideNavOpened, padModificando, setPadModificando, showingPadsSettings, setShowingPadsSettings, isDragging, setIsDragging }}>
+        <AppContext.Provider value={{ playSound, isTouch, setIsTouch, showingShortcuts, setShowingShortcuts, play, bpm, setBpm, screenContent, setScreenContent, setAllSounds, currentSounds, setCurrentSounds, allSounds, handlePresetChange, preset, sideNavOpened, setSideNavOpened, padModificando, setPadModificando, showingPadsSettings, setShowingPadsSettings, isDragging, setIsDragging, sequencerPlaying, setSequencerPlaying, handleCambiarSonido }}>
             {children}
         </AppContext.Provider>
     );
