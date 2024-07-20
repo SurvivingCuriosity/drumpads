@@ -30,7 +30,7 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
 
     const renderCategory = (category: Categories, sounds: SoundFull[], label: string, IconComponent?: (props: IconProps) => JSX.Element) => {
         return (
-            <div key={category}>
+            <li key={category}>
 
                 <div className="flex w-full items-center border-b border-primary">
 
@@ -46,15 +46,15 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
                     style={{ gridTemplateRows: activeCategory === category ? '1fr' : '0fr' }}
                     className="grid flex-col gap-2 overflow-hidden transition-[grid-template-rows] duration-500"
                 >
-                    <div className="flex flex-col gap-1 overflow-hidden">
+                    <li className="flex flex-col gap-1 overflow-hidden">
                         {sounds.map((sound) => (
                             <div key={sound.audioSrc} className="w-full">
                                 <SonidoListItem sonido={sound} esMovil={esMovil} />
                             </div>
                         ))}
-                    </div>
+                    </li>
                 </ul>
-            </div>
+            </li>
         );
     };
 
