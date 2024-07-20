@@ -31,7 +31,7 @@ export const BPMInput = (props: BPMInputProps) => {
                 aria-label="BPM"
                 onBlur={handleBlur}
                 type="number"
-                className={`w-28 rounded-lg border border-neutral-500 bg-neutral-800/50 px-2 py-1 pl-12 text-neutral-500 transition-colors duration-300 disabled:border-neutral-700 disabled:text-neutral-700`}
+                className={`w-28 rounded-lg border border-neutral-500 bg-neutral-800/50 px-2 py-1 pl-12 text-neutral-400 transition-colors duration-300 disabled:border-neutral-700 disabled:text-neutral-700`}
                 value={bpm}
                 onChange={handleChangeBpm}
                 disabled={disabled}
