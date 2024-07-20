@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAppContext } from "../../context/useAppContext.ts";
 import { ScreenContent } from "../../db/interfaces/ScreenContent.ts";
-import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil.ts";
 import { Tab } from "./Tab.tsx";
 
 export interface ScreenContentPickerProps {
@@ -10,8 +9,6 @@ export interface ScreenContentPickerProps {
 }
 
 export const ScreenContentPicker = (props: ScreenContentPickerProps) => {
-
-    const isPantallaMovil = useIsPantallaMovil()
 
     const { sequencerPlaying } = useAppContext()
 
@@ -31,7 +28,6 @@ export const ScreenContentPicker = (props: ScreenContentPickerProps) => {
     const tabWidth = 100 / tabs.length;
 
     return (
-        isPantallaMovil &&
             <nav className='block w-full lg:hidden'>
             <div className="mx-auto max-w-[450px] rounded-xl bg-neutral-900 p-1">
             <ul className="relative flex flex-row justify-between">
