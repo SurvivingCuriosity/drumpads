@@ -1,5 +1,4 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
-import 'core-js';
 import React, { useEffect, useState } from 'react';
 import { Footer } from './components/Footer.tsx';
 import { BigScreenLayout } from './components/Layouts/BigScreenLayout.tsx';
