@@ -33,8 +33,8 @@ export const ScreenContentPicker = (props: ScreenContentPickerProps) => {
     return (
         isPantallaMovil &&
             <nav className='block w-full lg:hidden'>
-            <ul className="mx-auto max-w-[450px] rounded-xl bg-neutral-900 p-1">
-            <div className="relative flex flex-row justify-between">
+            <div className="mx-auto max-w-[450px] rounded-xl bg-neutral-900 p-1">
+            <ul className="relative flex flex-row justify-between">
                 <li
                     className="absolute h-full cursor-pointer rounded-lg bg-neutral-500/20 px-2 text-center transition-transform duration-300 ease-in-out"
                     style={{
@@ -58,8 +58,8 @@ export const ScreenContentPicker = (props: ScreenContentPickerProps) => {
                     active={idSelected === tabs[1].id}
                     showDot={sequencerPlaying}
                 />
-            </div>
-        </ul>
+            </ul>
+        </div>
             </nav>
           
         

@@ -62,7 +62,7 @@ export const Pad = (props: ButtonProps) => {
         <img onClick={handleClickIconoCarpeta} src={folder} className='absolute right-1/2 top-1/2 size-12 -translate-y-1/2 translate-x-1/2 cursor-pointer transition-transform duration-200 hover:scale-125' />
         :
         <>
-          <p className='absolute left-0 m-1 text-xs text-neutral-500'>{sound?.label}</p>
+          <p className='absolute left-0 m-1 text-xs text-neutral-400'>{sound?.label}</p>
           <p className='absolute bottom-0 left-0 m-1 text-xs text-neutral-700'>{index+1}</p>
           {showingShortcuts && sound?.key && <span className='absolute bottom-0 right-0 m-1'><Key tecla={sound.key} /></span>}
         </>
