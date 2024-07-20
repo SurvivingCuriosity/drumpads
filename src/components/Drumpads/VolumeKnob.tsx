@@ -52,8 +52,9 @@ export const VolumeKnob = (props: VolumeKnobProps) => {
 
     return (
         <div className="relative w-6 rounded-md bg-neutral-900">
-            <p className={`absolute left-1/2 top-0 -translate-x-1/2 ${isPlaying ? 'text-primary' : 'text-neutral-500'}`}>{index + 1}</p>
+            <p className={`absolute left-1/2 top-0 -translate-x-1/2 ${isPlaying ? 'text-primary' : 'text-neutral-400'}`}>{index + 1}</p>
             <input
+                aria-label="volume"
                 style={{
                     background: isPlaying ? getColorValueFromCss() : '#3d3d3d77',
                     transition: 'background 0.3s ease'
