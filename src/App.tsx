@@ -1,13 +1,13 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import 'core-js';
 import React, { useEffect, useState } from 'react';
-import { Footer } from './components/Footer';
-import { BigScreenLayout } from './components/Layouts/BigScreenLayout';
-import { MobileLayout } from './components/Layouts/MobileLayout';
-import { ListaTodosSonidos } from './components/ListaTodosSonidos';
-import { TopNav } from './components/TopNav';
-import { useAppContext } from './context/useAppContext';
-import { MidLayout } from './components/Layouts/MidLayout';
+import { Footer } from './components/Footer.tsx';
+import { BigScreenLayout } from './components/Layouts/BigScreenLayout.tsx';
+import { MidLayout } from './components/Layouts/MidLayout.tsx';
+import { MobileLayout } from './components/Layouts/MobileLayout.tsx';
+import { ListaTodosSonidos } from './components/ListaTodosSonidos.tsx';
+import { TopNav } from './components/TopNav.tsx';
+import { useAppContext } from './context/useAppContext.ts';
 
 const App: React.FC = () => {
   const { setIsDragging, handleCambiarSonido } = useAppContext();

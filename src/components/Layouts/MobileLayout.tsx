@@ -1,9 +1,9 @@
-import { useAppContext } from "../../context/useAppContext";
-import { AppTitle } from "../AppTitle";
-import { Controls } from "../Drumpads/Controls";
-import DrumPads from "../Drumpads/DrumPads";
-import { Sequencer } from "../Sequencer/Sequencer";
-import { ScreenContentPicker } from "../Tabs";
+import { useAppContext } from "../../context/useAppContext.ts";
+import { AppTitle } from "../AppTitle.tsx";
+import { Controls } from "../Drumpads/Controls.tsx";
+import DrumPads from "../Drumpads/DrumPads.tsx";
+import { Sequencer } from "../Sequencer/Sequencer.tsx";
+import { ScreenContentPicker } from "../Tabs/ScreenContentPicker.tsx";
 
 export const MobileLayout = () => {
 

@@ -1,6 +1,6 @@
-import { AppTitle } from "../AppTitle";
-import DrumPads from "../Drumpads/DrumPads";
-import { Sequencer } from "../Sequencer/Sequencer";
+import { AppTitle } from "../AppTitle.tsx";
+import DrumPads from "../Drumpads/DrumPads.tsx";
+import { Sequencer } from "../Sequencer/Sequencer.tsx";
 
 export const MidLayout = () => {
 

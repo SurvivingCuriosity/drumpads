@@ -1,6 +1,6 @@
-import { KickIcon } from "../../components/icons/KickIcon";
-import { Categories } from "../interfaces/Categories";
-import { Sound } from "../interfaces/Sound";
+import { KickIcon } from "../../components/icons/KickIcon.tsx";
+import { Categories } from "../interfaces/Categories.ts";
+import { Sound } from "../interfaces/Sound.ts";
 
 export const kicks: Sound[] = [
   {

@@ -1,4 +1,4 @@
-import { useAppContext } from "../../context/useAppContext"
+import { useAppContext } from "../../context/useAppContext.ts"
 
 export interface BPMInputProps {
     disabled?: boolean

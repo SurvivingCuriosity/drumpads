@@ -1,4 +1,3 @@
-
 export const AppTitle = () => {
     return (
         <header className='flex flex-row justify-between'>

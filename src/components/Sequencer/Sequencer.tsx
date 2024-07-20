@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useAppContext } from "../../context/useAppContext"
-import { ScreenContent } from "../../db/interfaces/ScreenContent"
-import { SoundFull } from "../../db/interfaces/Sound"
-import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil"
-import { BPMInput } from "./BPMInput"
+import { useAppContext } from "../../context/useAppContext.ts"
+import { ScreenContent } from "../../db/interfaces/ScreenContent.ts"
+import { SoundFull } from "../../db/interfaces/Sound.ts"
+import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil.ts"
+import { BPMInput } from "./BPMInput.tsx"
 
 export const Sequencer = () => {
 

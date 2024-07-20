@@ -1,6 +1,6 @@
-import { OpenHatIcon } from "../../components/icons/OpenHatIcon";
-import { Categories } from "../interfaces/Categories";
-import { Sound } from "../interfaces/Sound";
+import { OpenHatIcon } from "../../components/icons/OpenHatIcon.tsx";
+import { Categories } from "../interfaces/Categories.ts";
+import { Sound } from "../interfaces/Sound.ts";
 
 export const openhats:Sound[] = [
     {

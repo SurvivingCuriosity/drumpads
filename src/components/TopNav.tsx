@@ -1,6 +1,6 @@
-import { useAppContext } from '../context/useAppContext';
-import { MusicListIcon } from './icons/MusicListIcon';
-import { SideNav } from './SideNav';
+import { useAppContext } from '../context/useAppContext.ts';
+import { MusicListIcon } from './icons/MusicListIcon.tsx';
+import { SideNav } from './SideNav.tsx';
 
 export const TopNav = () => {
 

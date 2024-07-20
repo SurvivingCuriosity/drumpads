@@ -5,21 +5,16 @@ export const useIsPantallaMovil = (): boolean => {
 
   useEffect(() => {
     const handleResize = () => {
-      // Actualizar el estado basado en el ancho de la pantalla
-      setIsMobile(window.innerWidth < 1024); // Puedes ajustar este valor según tus necesidades
+      setIsMobile(window.innerWidth < 1024);
     };
 
-    // Verificar el tamaño de la pantalla al inicio
     handleResize();
 
-    // Agregar un listener de redimensionamiento para actualizar el estado
     window.addEventListener('resize', handleResize);
-
-    // Limpiar el listener cuando el componente se desmonta
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []); // No se necesita dependencia para useEffect
+  }, []);
 
   return isMobile;
 };

@@ -1,6 +1,6 @@
-import { HihatIcon } from "../../components/icons/HihatIcon";
-import { Categories } from "../interfaces/Categories";
-import { Sound } from "../interfaces/Sound";
+import { HihatIcon } from "../../components/icons/HihatIcon.tsx";
+import { Categories } from "../interfaces/Categories.ts";
+import { Sound } from "../interfaces/Sound.ts";
 
 export const closehats: Sound[] = [
   {

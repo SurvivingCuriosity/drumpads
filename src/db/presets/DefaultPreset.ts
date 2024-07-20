@@ -1,4 +1,4 @@
-import { Sound } from "../interfaces/Sound";
+import { Sound } from "../interfaces/Sound.ts";
 import { labeledClaps, labeledClosehats, labeledKicks, labeledSnares } from "../sounds";
 
 export const default_preset: Sound[] = [

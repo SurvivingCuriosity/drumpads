@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Tab } from "./Tab";
-import { ScreenContent } from "../../db/interfaces/ScreenContent";
-import { useAppContext } from "../../context/useAppContext";
-import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil";
+import { useAppContext } from "../../context/useAppContext.ts";
+import { ScreenContent } from "../../db/interfaces/ScreenContent.ts";
+import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil.ts";
+import { Tab } from "./Tab.tsx";
 
 export interface ScreenContentPickerProps {
     activeTabId?: string;

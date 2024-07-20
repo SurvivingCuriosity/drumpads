@@ -1,4 +1,4 @@
-import { Sound } from "../interfaces/Sound";
+import { Sound } from "../interfaces/Sound.ts";
 
 export const empty_preset: Array<Sound|undefined> = [
   undefined,

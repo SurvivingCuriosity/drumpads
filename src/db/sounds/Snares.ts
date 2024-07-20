@@ -1,6 +1,6 @@
-import { SnareIcon } from "../../components/icons/SnareIcon";
-import { Categories } from "../interfaces/Categories";
-import { Sound } from "../interfaces/Sound";
+import { SnareIcon } from "../../components/icons/SnareIcon.tsx";
+import { Categories } from "../interfaces/Categories.ts";
+import { Sound } from "../interfaces/Sound.ts";
 
 export const snares: Sound[] = [
   {

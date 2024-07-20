@@ -1,11 +1,12 @@
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from '@dnd-kit/utilities';
 import { useMemo, useState } from "react";
 import drag_indicator_icon from "../assets/icons/drag_indicator.svg";
 import play_icon from "../assets/icons/play.svg";
-import { SoundFull } from "../db/interfaces/Sound";
-import { useAppContext } from "../context/useAppContext";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from '@dnd-kit/utilities';
-import { useIsPantallaMovil } from "../helpers/useIsPantallaMovil";
+import { useAppContext } from "../context/useAppContext.ts";
+import { SoundFull } from "../db/interfaces/Sound.ts";
+import { useIsPantallaMovil } from "../helpers/useIsPantallaMovil.ts";
+
 export interface SonidoListItemProps {
     sonido: SoundFull;
     esMovil: boolean;

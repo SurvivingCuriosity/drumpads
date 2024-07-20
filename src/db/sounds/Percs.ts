@@ -1,6 +1,6 @@
-import { PercIcon } from "../../components/icons/PercIcon";
-import { Categories } from "../interfaces/Categories";
-import { Sound } from "../interfaces/Sound";
+import { PercIcon } from "../../components/icons/PercIcon.tsx";
+import { Categories } from "../interfaces/Categories.ts";
+import { Sound } from "../interfaces/Sound.ts";
 
 export const percs:Sound[] = [
     {

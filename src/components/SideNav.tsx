@@ -1,5 +1,5 @@
-import { useAppContext } from "../context/useAppContext";
-import { ListaTodosSonidos } from "./ListaTodosSonidos";
+import { useAppContext } from "../context/useAppContext.ts";
+import { ListaTodosSonidos } from "./ListaTodosSonidos.tsx";
 
 
 export const SideNav = () => {

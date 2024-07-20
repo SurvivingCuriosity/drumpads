@@ -1,9 +1,3 @@
-import { getColorValueFromCss } from "../../helpers/getColorValueFromCss";
-
-console.log("====================================");
-console.log(getColorValueFromCss("--yellow"));
-console.log("=========================s===========");
-
 export const COLORS = [
   { name: "yellow", value: "hsl(54,100%,60%)" },
   { name: "orange", value: "hsl(39,100%,60%)" },

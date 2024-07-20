@@ -1,5 +1,5 @@
-import { IconProps } from "../../components/icons/IconProps";
-import { Categories } from "./Categories";
+import { IconProps } from "../../components/icons/IconProps.ts";
+import { Categories } from "./Categories.ts";
 
 export interface Sound {
   audioSrc: string;

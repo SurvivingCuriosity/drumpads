@@ -1,4 +1,4 @@
-import { COLORS } from "../db/theme/Colors";
+import { COLORS } from "../db/theme/Colors.ts";
 
 export const ThemePicker = () => {
     

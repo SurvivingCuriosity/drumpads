@@ -2,10 +2,10 @@ import { useState } from "react";
 import no_volume_icon from '../../assets/icons/no_volume_2.svg';
 import volume_icon from '../../assets/icons/volume_2.svg';
 import volume_highicon from '../../assets/icons/volume_high_2.svg';
-import { useAppContext } from "../../context/useAppContext";
-import { SoundFull } from "../../db/interfaces/Sound";
+import { useAppContext } from "../../context/useAppContext.ts";
+import { SoundFull } from "../../db/interfaces/Sound.ts";
+import { getColorValueFromCss } from "../../helpers/getColorValueFromCss.ts";
 import './VolumeKnob.css';
-import { getColorValueFromCss } from "../../helpers/getColorValueFromCss";
 
 export interface VolumeKnobProps {
     isPlaying: boolean;

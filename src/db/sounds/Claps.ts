@@ -1,6 +1,6 @@
-import { ClapIcon } from "../../components/icons/ClapIcon";
-import { Categories } from "../interfaces/Categories";
-import { Sound } from "../interfaces/Sound";
+import { ClapIcon } from "../../components/icons/ClapIcon.tsx";
+import { Categories } from "../interfaces/Categories.ts";
+import { Sound } from "../interfaces/Sound.ts";
 
 
 export const claps:Sound[] = [

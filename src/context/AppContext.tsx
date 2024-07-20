@@ -1,10 +1,10 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { PlayEvent } from '../db/interfaces/PlayEvent';
-import { ScreenContent } from '../db/interfaces/ScreenContent';
-import { Sound, SoundFull } from '../db/interfaces/Sound';
+import { PlayEvent } from '../db/interfaces/PlayEvent.ts';
+import { ScreenContent } from '../db/interfaces/ScreenContent.ts';
+import { Sound, SoundFull } from '../db/interfaces/Sound.ts';
 import { empty_preset, Presets, reggaeton_preset, techno_preset } from '../db/presets';
 import { claps, closehats, kicks, openhats, percs, snares } from '../db/sounds';
-import AudioManager from '../services/AudioManager';
+import AudioManager from '../services/AudioManager.ts';
 
 export interface AppContext {
     allSounds: SoundFull[];

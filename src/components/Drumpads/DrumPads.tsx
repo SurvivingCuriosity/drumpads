@@ -6,11 +6,11 @@ import keyboard_icon from '../../assets/icons/keyboard.svg';
 import keyboard_off_icon from '../../assets/icons/keyboard_off.svg';
 import knobs from '../../assets/icons/knobs.svg';
 import settings from '../../assets/icons/settings.svg';
-import { Controls } from './Controls';
-import { PresetPicker } from './PresetPicker';
-import { useAppContext } from '../../context/useAppContext';
-import { ScreenContent } from '../../db/interfaces/ScreenContent';
-import { useIsPantallaMovil } from '../../helpers/useIsPantallaMovil';
+import { useAppContext } from '../../context/useAppContext.ts';
+import { ScreenContent } from '../../db/interfaces/ScreenContent.ts';
+import { useIsPantallaMovil } from '../../helpers/useIsPantallaMovil.ts';
+import { Controls } from './Controls.tsx';
+import { PresetPicker } from './PresetPicker.tsx';
 
 const DrumPads = () => {
 

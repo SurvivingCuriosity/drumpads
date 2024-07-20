@@ -1,5 +1,5 @@
 import logo from '../../public/logo.svg';
-import { ThemePicker } from './ThemePicker';
+import { ThemePicker } from './ThemePicker.tsx';
 
 export const Footer = () => {
     return (

@@ -1,5 +1,5 @@
-import { useAppContext } from "../../context/useAppContext";
-import { VolumeKnob } from "./VolumeKnob"
+import { useAppContext } from "../../context/useAppContext.ts";
+import { VolumeKnob } from "./VolumeKnob.tsx"
 
 export const Controls = () => {
     return (

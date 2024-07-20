@@ -1,7 +1,7 @@
 import React from 'react';
-import { SoundFull } from '../../db/interfaces/Sound';
-import { Key } from '../Key';
-import { useAppContext } from '../../context/useAppContext';
+import { SoundFull } from '../../db/interfaces/Sound.ts';
+import { Key } from '../Key.tsx';
+import { useAppContext } from '../../context/useAppContext.ts';
 import folder from '../../assets/icons/folder.svg';
 import { useDroppable } from '@dnd-kit/core';
 

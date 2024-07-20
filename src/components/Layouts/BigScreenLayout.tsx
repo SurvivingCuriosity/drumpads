@@ -1,6 +1,6 @@
-import { Controls } from "../Drumpads/Controls";
-import DrumPads from "../Drumpads/DrumPads";
-import { Sequencer } from "../Sequencer/Sequencer";
+import { Controls } from "../Drumpads/Controls.tsx";
+import DrumPads from "../Drumpads/DrumPads.tsx";
+import { Sequencer } from "../Sequencer/Sequencer.tsx";
 
 export const BigScreenLayout = () => {
 

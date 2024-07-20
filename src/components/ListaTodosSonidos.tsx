@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { useAppContext } from "../context/useAppContext";
-import { Categories } from "../db/interfaces/Categories";
-import { SoundFull } from "../db/interfaces/Sound";
-import { SonidoListItem } from "./SonidoListItem";
-import { IconProps } from "./icons/IconProps";
+import { useAppContext } from "../context/useAppContext.ts";
+import { Categories } from "../db/interfaces/Categories.ts";
+import { SoundFull } from "../db/interfaces/Sound.ts";
+import { SonidoListItem } from "./SonidoListItem.tsx";
+import { IconProps } from "./icons/IconProps.ts";
 
 export interface ListaTodosSonidosProps {
     esMovil: boolean;

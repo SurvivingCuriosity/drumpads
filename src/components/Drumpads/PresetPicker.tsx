@@ -1,8 +1,8 @@
-import Select, { SingleValue } from 'react-select';
-import { Presets } from '../../db/presets/Presets';
-import { useAppContext } from '../../context/useAppContext';
 import { useState } from 'react';
-import { getColorValueFromCss } from '../../helpers/getColorValueFromCss';
+import Select, { SingleValue } from 'react-select';
+import { useAppContext } from '../../context/useAppContext.ts';
+import { Presets } from '../../db/presets/Presets.ts';
+import { getColorValueFromCss } from '../../helpers/getColorValueFromCss.ts';
 
 export const PresetPicker = () => {
     const { handlePresetChange, preset } = useAppContext();
