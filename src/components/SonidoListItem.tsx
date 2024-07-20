@@ -62,7 +62,6 @@ export const SonidoListItem = (props: SonidoListItemProps) => {
 
     return (
         <li
-
             ref={setNodeRef} 
             style={{
                 ...style,

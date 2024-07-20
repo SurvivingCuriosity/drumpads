@@ -48,9 +48,9 @@ export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
                 >
                     <li className="flex flex-col gap-1 overflow-hidden">
                         {sounds.map((sound) => (
-                            <div key={sound.audioSrc} className="w-full">
+                            <ul key={sound.audioSrc} className="w-full">
                                 <SonidoListItem sonido={sound} esMovil={esMovil} />
-                            </div>
+                            </ul>
                         ))}
                     </li>
                 </ul>
