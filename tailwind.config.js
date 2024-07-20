@@ -15,9 +15,6 @@ export default {
         "primary-darker":"hsl(var(--primary-darker) / <alpha-value>)",
         "primary-darkest":"hsl(var(--primary-darkest) / <alpha-value>)",
       },
-      animation:{
-        text: "text 8s ease infinite",
-      },
       keyframes:{
         text: {
           "0%, 100%": {
