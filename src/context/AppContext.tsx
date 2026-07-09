@@ -64,7 +64,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     // Clase encargada de manejar el audio
-    const audioManager = useMemo(() => new AudioManager(allSounds), []);
+    const audioManager = useMemo(() => new AudioManager(), []);
 
 
     // Sonidos seleccionados (máximo 9)
@@ -81,6 +81,19 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             icon: sound?.icon || undefined,
         }
     }));
+
+    // Carga primero los sonidos del preset activo (los que se pueden tocar ya) y
+    // el resto de la librería después, en segundo plano
+    useEffect(() => {
+        const prioritySrcs = new Set(currentSounds.filter((s): s is SoundFull => !!s?.audioSrc).map(s => s.audioSrc));
+        const prioritySounds = allSounds.filter(s => prioritySrcs.has(s.audioSrc));
+        const restSounds = allSounds.filter(s => !prioritySrcs.has(s.audioSrc));
+
+        audioManager.loadSounds(prioritySounds).then(() => {
+            audioManager.loadSounds(restSounds);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const [showingShortcuts, setShowingShortcuts] = useState<boolean>(false);
     const [isTouch, setIsTouch] = useState<boolean>(false);
@@ -128,6 +141,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
         let eventIndex: number = -1;
         if ('key' in e) {
+            if (e.repeat) return; // Ignora la autorepetición del teclado al mantener pulsado
             eventIndex = keyMap.indexOf(e.key);
         } else if ('currentTarget' in e && 'dataset' in e.currentTarget) {
             eventIndex = parseInt((e.currentTarget as HTMLDivElement).dataset.key || "", 10) - 1;
@@ -137,6 +151,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         const audioSrc = currentSounds[eventIndex]?.audioSrc;
         if (!audioSrc) return;
 
+        audioManager.resume();
         audioManager.playSound(audioSrc, currentSounds[eventIndex]?.volume);
 
 
@@ -170,6 +185,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         const audioSrc = sound?.audioSrc;
         if (!audioSrc) return;
 
+        audioManager.resume();
         audioManager.playSound(audioSrc, sound?.volume);
 
         // Animate boom animation

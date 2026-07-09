@@ -27,6 +27,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest,mp3}'],
+      },
       manifest: {
         name: 'KrumDit',
         short_name: 'KrumDit',

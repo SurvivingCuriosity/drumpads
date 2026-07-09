@@ -3,24 +3,33 @@ class AudioManager {
   buffers: Record<string, AudioBuffer>;
   sources: Record<string, AudioBufferSourceNode | null>;
 
-  constructor(sounds: { audioSrc: string }[]) {
-    this.context = new AudioContext();
+  constructor() {
+    // 'interactive' pide al navegador el buffer de salida más pequeño posible
+    this.context = new AudioContext({ latencyHint: 'interactive' });
     this.buffers = {};
     this.sources = {};
-    this.loadSounds(sounds);
   }
 
   async loadSounds(sounds: { audioSrc: string }[]) {
-    try {
-      for (const sound of sounds) {
-        const response = await fetch(sound.audioSrc);
-        const data = await response.arrayBuffer();
-        const buffer = await this.context.decodeAudioData(data);
-        this.buffers[sound.audioSrc] = buffer;
-        this.sources[sound.audioSrc] = null;
-      }
-    } catch (error) {
-      console.error(`Error loading sounds:`, error);
+    await Promise.all(
+      sounds.map(async (sound) => {
+        try {
+          const response = await fetch(sound.audioSrc);
+          const data = await response.arrayBuffer();
+          const buffer = await this.context.decodeAudioData(data);
+          this.buffers[sound.audioSrc] = buffer;
+          this.sources[sound.audioSrc] = null;
+        } catch (error) {
+          console.error(`Error loading sound ${sound.audioSrc}:`, error);
+        }
+      })
+    );
+  }
+
+  // Los navegadores suspenden el AudioContext hasta un gesto del usuario
+  resume() {
+    if (this.context.state === 'suspended') {
+      this.context.resume();
     }
   }
 

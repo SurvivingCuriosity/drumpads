@@ -45,7 +45,7 @@ export const Pad = (props: ButtonProps) => {
     <div
       ref={setNodeRef}
       data-key={index + 1}
-      className={`relative border-2 rounded-lg transition-all bg-neutral-800/50 w-full aspect-square 
+      className={`relative touch-manipulation border-2 rounded-lg transition-all bg-neutral-800/50 w-full aspect-square
         ${dragIsOver ? 'bg-primary/30 border-primary'
           : isDragging ?
             'border-primary' 
