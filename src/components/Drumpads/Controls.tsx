@@ -1,5 +1,8 @@
-import { useAppContext } from "../../context/useAppContext.ts";
 import { VolumeKnob } from "./VolumeKnob.tsx"
+
+// Los pads siempre son 9 (grid 3x3); cada VolumeKnob decide si renderizarse
+// según su propio sonido, así Controls nunca necesita suscribirse a currentSounds.
+const padIndexes = Array.from({ length: 9 }, (_, i) => i);
 
 export const Controls = () => {
     return (
@@ -10,21 +13,11 @@ export const Controls = () => {
 }
 
 export const VolumeControls = () => {
-
-    const { currentSounds } = useAppContext();
-
     return (
         <div className="flex w-full justify-between">
-            {currentSounds.map((sound, index) => {
-                if (sound?.audioSrc === '') return null;
-                return (
-                    <VolumeKnob
-                        key={(sound?.audioSrc ?? 'undefined') + 'knob' + index}
-                        isPlaying={sound?.playing ?? false}
-                        index={index}
-                    />
-                )
-            })}
+            {padIndexes.map((index) => (
+                <VolumeKnob key={index} index={index} />
+            ))}
         </div>
     )
 }

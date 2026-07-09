@@ -3,7 +3,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useMemo, useState } from "react";
 import drag_indicator_icon from "../assets/icons/drag_indicator.svg";
 import play_icon from "../assets/icons/play.svg";
-import { useAppContext } from "../context/useAppContext.ts";
+import { useAppStore } from "../store/useAppStore.ts";
 import { SoundFull } from "../db/interfaces/Sound.ts";
 import { useIsPantallaMovil } from "../helpers/useIsPantallaMovil.ts";
 
@@ -29,7 +29,10 @@ export const SonidoListItem = (props: SonidoListItemProps) => {
         width: isPantallaMovil ? '100%' : '180px'
     };
 
-    const { play, padModificando, setPadModificando, setSideNavOpened, setCurrentSounds, currentSounds } = useAppContext();
+    // Se leen del store (no reactivos) solo cuando el usuario hace clic, en vez de
+    // suscribirse aquí: evita que los 42 items de la lista se re-rendericen en cada
+    // toque de pad.
+    const play = useAppStore(s => s.play);
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -37,23 +40,9 @@ export const SonidoListItem = (props: SonidoListItemProps) => {
     const mostrarDragIcon = useMemo(() => !esMovil && isHovered, [esMovil, isHovered]);
 
     const handleClickSonido = () => {
+        const { padModificando, assignSoundToPad, setPadModificando, setSideNavOpened } = useAppStore.getState();
         if (padModificando !== null) {
-            // padModificando is the index of the sound being modified
-            // Update currentSounds and set the new sound at that position
-            const newSounds = [...currentSounds];
-            newSounds[padModificando] = {
-                ...newSounds[padModificando],
-                label: sonido.label,
-                category: sonido.category,
-                audioSrc: sonido.audioSrc,
-                volume: 1,
-                key: newSounds[padModificando]?.key,
-                audioObj: newSounds[padModificando]?.audioObj,
-                playing: false
-
-            };
-
-            setCurrentSounds(newSounds);
+            assignSoundToPad(padModificando, sonido);
 
             // Reset padModificando and close the side navigation
             setPadModificando(null);

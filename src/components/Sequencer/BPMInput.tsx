@@ -1,4 +1,4 @@
-import { useAppContext } from "../../context/useAppContext.ts"
+import { useAppStore } from "../../store/useAppStore.ts"
 
 export interface BPMInputProps {
     disabled?: boolean
@@ -8,7 +8,8 @@ export const BPMInput = (props: BPMInputProps) => {
 
 
     const { disabled } = props
-    const { bpm, setBpm } = useAppContext()
+    const bpm = useAppStore(s => s.bpm);
+    const setBpm = useAppStore(s => s.setBpm);
 
     const handleChangeBpm = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newBpm = parseInt(e.target.value)

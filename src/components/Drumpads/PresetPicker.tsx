@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Select, { SingleValue } from 'react-select';
-import { useAppContext } from '../../context/useAppContext.ts';
+import { useAppStore } from '../../store/useAppStore.ts';
 import { Presets } from '../../db/presets/Presets.ts';
 import { getColorValueFromCss } from '../../helpers/getColorValueFromCss.ts';
 
 export const PresetPicker = () => {
-    const { handlePresetChange, preset } = useAppContext();
+    const handlePresetChange = useAppStore(s => s.handlePresetChange);
+    const preset = useAppStore(s => s.preset);
 
     const options = Object.entries(Presets).map(([key, value]) => ({
         value: key,

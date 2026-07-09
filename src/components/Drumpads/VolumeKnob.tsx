@@ -2,30 +2,28 @@ import { useState } from "react";
 import no_volume_icon from '../../assets/icons/no_volume_2.svg';
 import volume_icon from '../../assets/icons/volume_2.svg';
 import volume_highicon from '../../assets/icons/volume_high_2.svg';
-import { useAppContext } from "../../context/useAppContext.ts";
-import { SoundFull } from "../../db/interfaces/Sound.ts";
+import { useAppStore } from "../../store/useAppStore.ts";
 import { getColorValueFromCss } from "../../helpers/getColorValueFromCss.ts";
 import './VolumeKnob.css';
 
 export interface VolumeKnobProps {
-    isPlaying: boolean;
     index: number;
 }
 
 export const VolumeKnob = (props: VolumeKnobProps) => {
 
-    const { isPlaying, index } = props;
+    const { index } = props;
 
-    const { setCurrentSounds, currentSounds } = useAppContext();
+    const sound = useAppStore(s => s.currentSounds[index]);
+    const setVolume = useAppStore(s => s.setVolume);
+
+    const isPlaying = sound?.playing ?? false;
 
     const [value, setValue] = useState('75');
     const [storedValue, setStoredValue] = useState('75');
 
     const actualizarVolumen = (newValue: string) => {
-        // Actualiza el volumen en el sonido actual
-        const newSounds = [...currentSounds]
-        newSounds[index] = { ...currentSounds[index], volume: parseInt(newValue) / 100 } as SoundFull
-        setCurrentSounds(newSounds);
+        setVolume(index, parseInt(newValue) / 100);
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +47,8 @@ export const VolumeKnob = (props: VolumeKnobProps) => {
             }
         }
     }
+
+    if (sound?.audioSrc === '') return null;
 
     return (
         <div className="relative w-6 rounded-md bg-neutral-900">

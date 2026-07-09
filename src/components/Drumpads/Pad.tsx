@@ -1,24 +1,29 @@
 import React from 'react';
-import { SoundFull } from '../../db/interfaces/Sound.ts';
 import { Key } from '../Key.tsx';
-import { useAppContext } from '../../context/useAppContext.ts';
+import { useAppStore } from '../../store/useAppStore.ts';
 import folder from '../../assets/icons/folder.svg';
 import { useDroppable } from '@dnd-kit/core';
 
 export interface ButtonProps {
   index: number;
   isTouch: boolean;
-  sound: SoundFull | undefined;
 }
 
 export const Pad = (props: ButtonProps) => {
-  const { sound, index, isTouch } = props;
+  const { index, isTouch } = props;
 
   const { setNodeRef, over } = useDroppable({
     id: index,
   });
 
-  const { showingShortcuts, play, setPadModificando, setSideNavOpened, showingPadsSettings, setShowingPadsSettings, isDragging } = useAppContext();
+  const sound = useAppStore(s => s.currentSounds[index]);
+  const showingShortcuts = useAppStore(s => s.showingShortcuts);
+  const showingPadsSettings = useAppStore(s => s.showingPadsSettings);
+  const isDragging = useAppStore(s => s.isDragging);
+  const play = useAppStore(s => s.play);
+  const setPadModificando = useAppStore(s => s.setPadModificando);
+  const setSideNavOpened = useAppStore(s => s.setSideNavOpened);
+  const setShowingPadsSettings = useAppStore(s => s.setShowingPadsSettings);
 
   const handlePadClick = (e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
     if (isTouch && e.type !== 'touchstart') {

@@ -1,4 +1,4 @@
-import { useAppContext } from "../../context/useAppContext.ts";
+import { useAppStore } from "../../store/useAppStore.ts";
 import { AppTitle } from "../AppTitle.tsx";
 import { Controls } from "../Drumpads/Controls.tsx";
 import DrumPads from "../Drumpads/DrumPads.tsx";
@@ -7,7 +7,7 @@ import { ScreenContentPicker } from "../Tabs/ScreenContentPicker.tsx";
 
 export const MobileLayout = () => {
 
-    const { setScreenContent } = useAppContext();
+    const setScreenContent = useAppStore(s => s.setScreenContent);
 
     return (
         <section className='flex w-full flex-1 flex-col items-center justify-start gap-2 p-2'>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppContext } from "../../context/useAppContext.ts";
+import { useAppStore } from "../../store/useAppStore.ts";
 import { ScreenContent } from "../../db/interfaces/ScreenContent.ts";
 import { Tab } from "./Tab.tsx";
 
@@ -10,7 +10,7 @@ export interface ScreenContentPickerProps {
 
 export const ScreenContentPicker = (props: ScreenContentPickerProps) => {
 
-    const { sequencerPlaying } = useAppContext()
+    const sequencerPlaying = useAppStore(s => s.sequencerPlaying);
 
     const { activeTabId, onTabClick } = props;
 

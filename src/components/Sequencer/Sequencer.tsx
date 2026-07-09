@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useAppContext } from "../../context/useAppContext.ts"
+import { useAppStore } from "../../store/useAppStore.ts"
 import { ScreenContent } from "../../db/interfaces/ScreenContent.ts"
 import { SoundFull } from "../../db/interfaces/Sound.ts"
 import { useIsPantallaMovil } from "../../helpers/useIsPantallaMovil.ts"
@@ -7,7 +7,12 @@ import { BPMInput } from "./BPMInput.tsx"
 
 export const Sequencer = () => {
 
-    const { currentSounds, play, bpm, screenContent, sequencerPlaying, setSequencerPlaying } = useAppContext()
+    const currentSounds = useAppStore(s => s.currentSounds);
+    const play = useAppStore(s => s.play);
+    const bpm = useAppStore(s => s.bpm);
+    const screenContent = useAppStore(s => s.screenContent);
+    const sequencerPlaying = useAppStore(s => s.sequencerPlaying);
+    const setSequencerPlaying = useAppStore(s => s.setSequencerPlaying);
 
     const isPantallaMovil = useIsPantallaMovil()
 
@@ -61,10 +66,6 @@ export const Sequencer = () => {
         activeStep.current = activeStep.current + 1
 
         const playing = setInterval(() => {
-            console.log(activeStep.current);
-            console.log(sequenceRef.current.length);
-
-
             const sonidos = currentSounds.filter(s => sequenceRef.current[activeStep.current]?.includes(s?.key ?? ''));
             sonidos.forEach(s => play(s));
             setActiveStepState(activeStep.current)

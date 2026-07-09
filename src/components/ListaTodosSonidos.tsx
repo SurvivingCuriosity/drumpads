@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useAppContext } from "../context/useAppContext.ts";
+import { useAppStore } from "../store/useAppStore.ts";
 import { Categories } from "../db/interfaces/Categories.ts";
 import { SoundFull } from "../db/interfaces/Sound.ts";
 import { SonidoListItem } from "./SonidoListItem.tsx";
@@ -11,7 +11,7 @@ export interface ListaTodosSonidosProps {
 
 export const ListaTodosSonidos = (props: ListaTodosSonidosProps) => {
     const { esMovil } = props;
-    const { allSounds } = useAppContext();
+    const allSounds = useAppStore(s => s.allSounds);
 
     const kicks = useMemo(() => allSounds.filter(sound => sound.category === Categories.KICKS), [allSounds]);
     const snares = useMemo(() => allSounds.filter(sound => sound.category === Categories.SNARES), [allSounds]);

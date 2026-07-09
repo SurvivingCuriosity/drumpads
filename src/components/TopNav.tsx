@@ -1,10 +1,11 @@
-import { useAppContext } from '../context/useAppContext.ts';
+import { useAppStore } from '../store/useAppStore.ts';
 import { MusicListIcon } from './icons/MusicListIcon.tsx';
 import { SideNav } from './SideNav.tsx';
 
 export const TopNav = () => {
 
-    const {sideNavOpened, setSideNavOpened} = useAppContext()
+    const sideNavOpened = useAppStore(s => s.sideNavOpened);
+    const setSideNavOpened = useAppStore(s => s.setSideNavOpened);
 
     return (
         <>

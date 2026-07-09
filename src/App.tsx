@@ -6,10 +6,12 @@ import { MidLayout } from './components/Layouts/MidLayout.tsx';
 import { MobileLayout } from './components/Layouts/MobileLayout.tsx';
 import { ListaTodosSonidos } from './components/ListaTodosSonidos.tsx';
 import { TopNav } from './components/TopNav.tsx';
-import { useAppContext } from './context/useAppContext.ts';
+import { PlayEvent } from './db/interfaces/PlayEvent.ts';
+import { useAppStore } from './store/useAppStore.ts';
 
 const App: React.FC = () => {
-  const { setIsDragging, handleCambiarSonido } = useAppContext();
+  const setIsDragging = useAppStore(s => s.setIsDragging);
+  const handleCambiarSonido = useAppStore(s => s.handleCambiarSonido);
 
   const handleDragStart = () => {
     setIsDragging(true);
@@ -34,6 +36,24 @@ const App: React.FC = () => {
     // Cleanup listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Carga de sonidos y atajos de teclado: se registran una única vez.
+  // Las acciones de Zustand tienen referencia estable, así que el listener
+  // nunca necesita reengancharse.
+  useEffect(() => {
+    useAppStore.getState().initAudio();
+
+    const handleKeyDown = (e: KeyboardEvent) => useAppStore.getState().playSound(e as unknown as PlayEvent);
+    window.addEventListener('keydown', handleKeyDown);
+
+    const handleTouchStart = () => useAppStore.getState().setIsTouch(true);
+    window.addEventListener('touchstart', handleTouchStart, { once: true });
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
